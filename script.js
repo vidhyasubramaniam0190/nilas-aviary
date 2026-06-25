@@ -568,10 +568,10 @@ const videos = [
         id: 1,
         title: 'African Grey Parrot Talking',
         bird: 'African Grey Parrot',
-        type: 'youtube',
-        src: 'https://www.youtube.com/embed/VIDEO_ID_1',
+        type: 'facebook',
+        src: 'https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fshare%2Fr%2F18fxfrHJkz%2F&show_text=false&mute=0',
         thumbnail: '',
-        duration: '1:45',
+        duration: '',
         emoji: '🦜'
     },
     {
@@ -651,8 +651,8 @@ function renderVideos() {
                 <div class="thumb-placeholder" style="${placeholderStyle}">${v.emoji}</div>
                 <div class="play-btn"><i class="fas fa-play"></i></div>
                 <div class="video-duration">${v.duration}</div>
-                <div class="video-type-badge ${v.type === 'youtube' ? 'badge-yt' : 'badge-local'}">
-                    ${v.type === 'youtube' ? '<i class="fab fa-youtube"></i> YouTube' : '<i class="fas fa-video"></i> Video'}
+                <div class="video-type-badge ${v.type === 'youtube' ? 'badge-yt' : v.type === 'facebook' ? 'badge-fb' : 'badge-local'}">
+                    ${v.type === 'youtube' ? '<i class="fab fa-youtube"></i> YouTube' : v.type === 'facebook' ? '<i class="fab fa-facebook"></i> Facebook' : '<i class="fas fa-video"></i> Video'}
                 </div>
             </div>
             <div class="video-info">
@@ -671,6 +671,8 @@ function openVideoModal(v) {
     const wrapper = document.getElementById('videoWrapper');
     if (v.type === 'youtube') {
         wrapper.innerHTML = `<iframe src="${v.src}?autoplay=1&rel=0" allowfullscreen allow="autoplay"></iframe>`;
+    } else if (v.type === 'facebook') {
+        wrapper.innerHTML = `<iframe src="${v.src}" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`;
     } else {
         wrapper.innerHTML = `<video controls autoplay><source src="${v.src}" type="video/mp4">Your browser does not support video.</video>`;
     }

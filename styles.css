@@ -550,6 +550,7 @@ h1,h2,h3,h4 { font-family: var(--fh); line-height: 1.3; }
     padding: 3px 10px; border-radius: 50px; font-size: .72rem; font-weight: 700;
 }
 .badge-yt    { background: #FF0000; color: #fff; }
+.badge-fb    { background: #1877F2; color: #fff; }
 .badge-local { background: var(--green); color: #fff; }
 
 .video-info { padding: 16px 18px 18px; }
