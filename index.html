@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Nila's Aviary - Premium quality pet birds. Shop African Grey Parrots, Cockatiels, Budgies, Lovebirds and more. Order via WhatsApp!">
+    <title>Nila's Aviary — Premium Pet Birds</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Lato:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- ===== NAVBAR ===== -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <span class="brand-icon">🦜</span>
+                <div class="brand-text">
+                    <span class="brand-name">Nila's Aviary</span>
+                    <span class="brand-tagline">Premium Pet Birds</span>
+                </div>
+            </div>
+            <button class="nav-toggle" id="navToggle" aria-label="Menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#birds" class="nav-link">Our Birds</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#reviews" class="nav-link">Reviews</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+                <li><a href="#order" class="nav-link nav-cta">Order Now</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero" id="home">
+        <div class="hero-overlay"></div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">🏆 Trusted Bird Shop Since 2018</div>
+                <h1>Welcome to <span>Nila's Aviary</span></h1>
+                <p>Discover beautiful, healthy, hand-raised pet birds. Every bird comes with care guidance and lifelong WhatsApp support.</p>
+                <div class="hero-stats">
+                    <div class="stat"><span class="stat-num">500+</span><span class="stat-label">Happy Customers</span></div>
+                    <div class="stat"><span class="stat-num">50+</span><span class="stat-label">Bird Species</span></div>
+                    <div class="stat"><span class="stat-num">8+</span><span class="stat-label">Years Experience</span></div>
+                </div>
+                <div class="hero-buttons">
+                    <a href="#birds" class="btn btn-primary"><i class="fas fa-dove"></i> Browse Birds</a>
+                    <a href="https://wa.me/917200911938?text=Hi%20Nila's%20Aviary!%20I'm%20interested%20in%20your%20birds." class="btn btn-whatsapp" target="_blank">
+                        <i class="fab fa-whatsapp"></i> Chat on WhatsApp
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="hero-birds">
+            <div class="floating-bird b1">🦜</div>
+            <div class="floating-bird b2">🐦</div>
+            <div class="floating-bird b3">🦚</div>
+        </div>
+    </section>
+
+    <!-- ===== FEATURES BAR ===== -->
+    <div class="features-bar">
+        <div class="container">
+            <div class="feat"><i class="fas fa-heart"></i><span>Hand-Raised & Tamed</span></div>
+            <div class="feat"><i class="fas fa-shield-alt"></i><span>Health Guaranteed</span></div>
+            <div class="feat"><i class="fas fa-truck"></i><span>Safe Delivery Pan India</span></div>
+            <div class="feat"><i class="fab fa-whatsapp"></i><span>24/7 WhatsApp Support</span></div>
+        </div>
+    </div>
+
+    <!-- ===== BIRDS SECTION ===== -->
+    <section class="birds-section" id="birds">
+        <div class="container">
+            <div class="section-header">
+                <span class="tag">Our Collection</span>
+                <h2>Explore Our Birds</h2>
+                <p>Each bird is hand-raised, health-checked, and ready to be your lifelong feathered friend</p>
+            </div>
+
+            <div class="filter-bar">
+                <button class="filter-btn active" data-filter="all">All Birds</button>
+                <button class="filter-btn" data-filter="parrot">Parrots</button>
+                <button class="filter-btn" data-filter="small">Small Birds</button>
+                <button class="filter-btn" data-filter="exotic">Exotic</button>
+                <button class="filter-btn" data-filter="pair">Pairs</button>
+            </div>
+
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Search by bird name or species…">
+            </div>
+
+            <div class="birds-grid" id="birdsGrid"></div>
+        </div>
+    </section>
+
+    <!-- ===== BIRD DETAIL MODAL ===== -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal" id="birdModal">
+            <button class="modal-close" id="modalClose"><i class="fas fa-times"></i></button>
+            <div id="modalContent"></div>
+        </div>
+    </div>
+
+    <!-- ===== ABOUT ===== -->
+    <section class="about-section" id="about">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-visual">
+                    <div class="about-blob">
+                        <div class="blob-emoji">🦜</div>
+                        <div class="blob-badge">
+                            <span class="badge-num">8+</span>
+                            <span class="badge-txt">Years of<br>Excellence</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-content">
+                    <span class="tag">About Us</span>
+                    <h2>We Love Birds, Just Like You</h2>
+                    <p>Nila's Aviary was founded with a simple passion — bringing joy to families through beautiful, healthy, and well-socialised pet birds. Every bird in our collection is raised with love and expert care.</p>
+                    <p>We specialise in hand-raising baby birds so they become trusting, friendly companions. All birds are health-checked, dewormed, and ready for their forever homes.</p>
+                    <div class="highlights">
+                        <div class="hl"><i class="fas fa-check-circle"></i><span>All birds health guaranteed</span></div>
+                        <div class="hl"><i class="fas fa-check-circle"></i><span>DNA sexing on request</span></div>
+                        <div class="hl"><i class="fas fa-check-circle"></i><span>Free diet & care guidance</span></div>
+                        <div class="hl"><i class="fas fa-check-circle"></i><span>Post-sale WhatsApp support</span></div>
+                        <div class="hl"><i class="fas fa-check-circle"></i><span>Safe pan-India delivery</span></div>
+                        <div class="hl"><i class="fas fa-check-circle"></i><span>Cage & accessories available</span></div>
+                    </div>
+                    <a href="https://wa.me/917200911938?text=Hi!%20I'd%20like%20to%20know%20more%20about%20Nila's%20Aviary." class="btn btn-primary" target="_blank">
+                        <i class="fab fa-whatsapp"></i> Talk to Us
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== REVIEWS ===== -->
+    <section class="reviews-section" id="reviews">
+        <div class="container">
+            <div class="section-header">
+                <span class="tag tag-gold">Customer Love</span>
+                <h2 style="color:#fff;">What Our Customers Say</h2>
+                <p style="color:rgba(255,255,255,0.7);">Over 500 happy families — here's what they have to say</p>
+            </div>
+
+            <div class="reviews-grid" id="reviewsGrid"></div>
+
+            <div class="add-review-box">
+                <h3>Share Your Experience</h3>
+                <p>Bought a bird from us? We'd love to hear your story!</p>
+                <button class="btn btn-primary" id="addReviewBtn"><i class="fas fa-star"></i> Write a Review</button>
+            </div>
+
+            <div class="review-form-container" id="reviewFormContainer">
+                <h3>Leave a Review</h3>
+                <form id="reviewForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Your Name *</label>
+                            <input type="text" id="reviewName" required placeholder="Your full name">
+                        </div>
+                        <div class="form-group">
+                            <label>Bird Purchased</label>
+                            <input type="text" id="reviewBird" placeholder="e.g., Cockatiel">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Rating *</label>
+                        <div class="star-input" id="starRating">
+                            <span class="s" data-v="1">★</span>
+                            <span class="s" data-v="2">★</span>
+                            <span class="s" data-v="3">★</span>
+                            <span class="s" data-v="4">★</span>
+                            <span class="s" data-v="5">★</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Your Review *</label>
+                        <textarea id="reviewText" required placeholder="Tell us about your experience…" rows="4"></textarea>
+                    </div>
+                    <div style="display:flex;gap:12px;flex-wrap:wrap;">
+                        <button type="submit" class="btn btn-primary">Submit Review</button>
+                        <button type="button" class="btn btn-outline" id="cancelReview">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== ORDER SECTION ===== -->
+    <section class="order-section" id="order">
+        <div class="container">
+            <div class="section-header">
+                <span class="tag">Place an Order</span>
+                <h2>Ready to Bring One Home?</h2>
+                <p>Fill in your details and we'll connect with you on WhatsApp instantly</p>
+            </div>
+            <div class="order-grid">
+                <div class="order-form-box">
+                    <form id="orderForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label><i class="fas fa-user"></i> Your Name *</label>
+                                <input type="text" id="orderName" required placeholder="Full name">
+                            </div>
+                            <div class="form-group">
+                                <label><i class="fas fa-phone"></i> Phone Number *</label>
+                                <input type="tel" id="orderPhone" required placeholder="+91 XXXXX XXXXX">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-map-marker-alt"></i> Your City</label>
+                            <input type="text" id="orderCity" placeholder="City, State">
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-dove"></i> Bird Interested In *</label>
+                            <select id="orderBird" required>
+                                <option value="">— Select a Bird —</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-comment"></i> Additional Message</label>
+                            <textarea id="orderMessage" rows="3" placeholder="Any special requirements or questions…"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-whatsapp btn-full">
+                            <i class="fab fa-whatsapp"></i> Send Order via WhatsApp
+                        </button>
+                    </form>
+                </div>
+                <div class="order-info">
+                    <h3>How It Works</h3>
+                    <div class="steps">
+                        <div class="step"><div class="sn">1</div><div><strong>Browse & Choose</strong><p>Pick your favourite bird from our collection</p></div></div>
+                        <div class="step"><div class="sn">2</div><div><strong>Fill the Form</strong><p>Submit your details and bird inquiry</p></div></div>
+                        <div class="step"><div class="sn">3</div><div><strong>WhatsApp Chat</strong><p>We'll connect you directly on WhatsApp</p></div></div>
+                        <div class="step"><div class="sn">4</div><div><strong>Delivery / Pickup</strong><p>Arrange delivery or visit us directly</p></div></div>
+                    </div>
+                    <div class="quick-contact" id="contact">
+                        <h4>Quick Contact</h4>
+                        <a href="https://wa.me/917200911938" class="clink wa" target="_blank"><i class="fab fa-whatsapp"></i> +91 72009 11938</a>
+                        <a href="mailto:nilasaviary@gmail.com" class="clink em"><i class="fas fa-envelope"></i> nilas.aviary@gmail.com</a>
+                        <div class="clink loc"><i class="fas fa-clock"></i> Mon–Sat: 9 AM – 7 PM</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <span>🦜</span>
+                        <div><strong>Nila's Aviary</strong><small>Premium Pet Birds</small></div>
+                    </div>
+                    <p>Your trusted source for healthy, hand-raised pet birds since 2018. We bring joy to families, one bird at a time.</p>
+                    <div class="socials">
+                        <a href="https://wa.me/917200911938" target="_blank" class="social wa"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#" class="social ig"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social fb"><i class="fab fa-facebook"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#birds">Our Birds</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#reviews">Reviews</a></li>
+                        <li><a href="#order">Order Now</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Categories</h4>
+                    <ul>
+                        <li><a href="#birds">Parrots & Cockatoos</a></li>
+                        <li><a href="#birds">Cockatiels & Budgies</a></li>
+                        <li><a href="#birds">Lovebirds & Conures</a></li>
+                        <li><a href="#birds">Finches & Canaries</a></li>
+                        <li><a href="#birds">Exotic Breeds</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contact Us</h4>
+                    <p><i class="fab fa-whatsapp"></i> +91 98765 43210</p>
+                    <p><i class="fas fa-envelope"></i> nilas.aviary@gmail.com</p>
+                    <p><i class="fas fa-clock"></i> Mon–Sat: 9 AM – 7 PM</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Your City, India</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2024 Nila's Aviary. All rights reserved. | Made with ❤️ for bird lovers</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== FLOATING WHATSAPP ===== -->
+    <a href="https://wa.me/917200911938?text=Hi%20Nila's%20Aviary!%20I'm%20interested%20in%20your%20birds."
+       class="wa-float" target="_blank" title="Chat on WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+        <span class="wa-tooltip">Chat with us!</span>
+    </a>
+
+    <!-- ===== BACK TO TOP ===== -->
+    <button class="btt" id="btt"><i class="fas fa-chevron-up"></i></button>
+
+    <!-- ===== TOAST ===== -->
+    <div class="toast" id="toast"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
