@@ -569,7 +569,8 @@ const videos = [
         title: 'African Grey Parrot Talking',
         bird: 'African Grey Parrot',
         type: 'facebook',
-        src: 'https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2Fshare%2Fr%2F18fxfrHJkz%2F&show_text=false&mute=0',
+        src: '',
+        fbUrl: 'https://www.facebook.com/share/r/18fxfrHJkz/',
         thumbnail: '',
         duration: '',
         emoji: '🦜'
@@ -672,7 +673,14 @@ function openVideoModal(v) {
     if (v.type === 'youtube') {
         wrapper.innerHTML = `<iframe src="${v.src}?autoplay=1&rel=0" allowfullscreen allow="autoplay"></iframe>`;
     } else if (v.type === 'facebook') {
-        wrapper.innerHTML = `<iframe src="${v.src}" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>`;
+        wrapper.innerHTML = `
+            <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;padding:40px;text-align:center;background:#1877F2;border-radius:0 0 var(--rl) var(--rl)">
+                <i class="fab fa-facebook" style="font-size:4rem;color:#fff;margin-bottom:18px"></i>
+                <p style="color:#fff;font-size:1.05rem;margin-bottom:22px">This video is hosted on Facebook.<br>Click below to watch it.</p>
+                <a href="${v.fbUrl}" target="_blank" style="background:#fff;color:#1877F2;padding:12px 28px;border-radius:50px;font-weight:700;font-size:1rem;text-decoration:none">
+                    <i class="fab fa-facebook"></i> Watch on Facebook
+                </a>
+            </div>`;
     } else {
         wrapper.innerHTML = `<video controls autoplay><source src="${v.src}" type="video/mp4">Your browser does not support video.</video>`;
     }
