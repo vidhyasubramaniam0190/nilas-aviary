@@ -766,9 +766,10 @@ const foodProducts = [
           e.g. 'images/accessories/myphoto.jpg'
    ============================================ */
 const accessories = [
-    { id:'a1',  name:'Medium Steel Cage',       subtitle:'24"×18"×24" · Powder Coated',emoji:'🏠', image:'images/accessories/cage-medium.jpg',    category:['cage'],    badge:'Popular',  unit:'₹3,500' },
-    { id:'a2',  name:'Large Parrot Cage',       subtitle:'36"×24"×48" · Heavy Duty',   emoji:'🏰', image:'images/accessories/cage-large.jpg',     category:['cage'],    badge:'Premium',  unit:'₹8,500' },
-    { id:'a3',  name:'Travel Carrier Cage',     subtitle:'Lightweight · Foldable',     emoji:'✈️', image:'images/accessories/travel-cage.jpg',    category:['cage'],    badge:null,       unit:'₹1,800' },
+    { id:'a1',  name:'Blue Steel Cage',    subtitle:'38×28×28 cm · Powder Coated', emoji:'🏠', images:['images/accessories/bird-cage-for-small-birds-blue-metal-38x28x28-cm.webp','images/accessories/bird-cage-for-small-blue-metal.png','images/accessories/bird-cage-for-small-birds-blue-metal-38x28x28-cm1.webp'], category:['cage'], badge:'Popular', unit:'₹749' },
+    { id:'a2',  name:'Black Steel Cage',   subtitle:'Heavy Duty · Powder Coated',  emoji:'🏰', images:['images/accessories/bird-cage-for-small-black-metal2.png','images/accessories/bird-cage-for-small-black-metal.png','images/accessories/bird-cage-for-small-birds-blue-metal-38x28x28-cm1.webp'],          category:['cage'], badge:'Premium', unit:'₹749' },
+    { id:'a3',  name:'Pink Steel Cage',          subtitle:'Small Birds · Stylish',       emoji:'🌸', images:['images/accessories/bird-cage-for-small-pink-metal.png','images/accessories/bird-cage-for-small-pink-metal (2).png','images/accessories/bird-cage-for-small-birds-blue-metal-38x28x28-cm1.webp'], category:['cage'], badge:null, unit:'₹749' },
+    { id:'a3b', name:'Light Pink Cage',    subtitle:'Small Birds · Pastel',        emoji:'🌷', images:['images/accessories/bird-cage-for-small-lite-pink-metal.png','images/accessories/bird-cage-for-small-birds-blue-metal-38x28x28-cm1.webp'],      category:['cage'], badge:'New',  unit:'₹749' },
     { id:'a4',  name:'Wooden T-Perch',          subtitle:'Natural Wood · Large',       emoji:'🌳', image:'images/accessories/t-perch.jpg',        category:['perch'],   badge:null,       unit:'₹280' },
     { id:'a5',  name:'Rope Perch Set',          subtitle:'Braided Cotton · 2pc',       emoji:'🪢', image:'images/accessories/rope-perch.jpg',    category:['perch'],   badge:'Popular',  unit:'₹350 / set' },
     { id:'a6',  name:'Java Wood Perch',         subtitle:'Natural Branch · Medium',    emoji:'🌿', image:'images/accessories/java-perch.jpg',    category:['perch'],   badge:'New',      unit:'₹420' },
@@ -793,15 +794,18 @@ function renderFood(list) {
         return;
     }
     list.forEach(p => {
+        const imgs = p.images || (p.image ? [p.image] : []);
+        const mainImg = imgs[0] || '';
         const waMsg = `Hi Nila's Aviary! I'd like to order *${p.name}* (${p.unit}). Please confirm availability and delivery details.`;
         const card = document.createElement('div');
         card.className = 'bird-card';
         card.innerHTML = `
             <div class="img-wrap">
-                <img class="card-img" src="${p.image}" alt="${p.name}"
+                <img class="card-img" src="${mainImg}" alt="${p.name}"
                      onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
                 <div class="img-placeholder food-ph" style="display:none">${p.emoji}</div>
                 ${p.badge ? `<div class="card-badge ${BADGE_CLASS[p.badge] || 'badge-popular'}">${p.badge}</div>` : ''}
+                ${imgs.length > 1 ? `<div class="multi-photo-badge"><i class="fas fa-images"></i> ${imgs.length}</div>` : ''}
             </div>
             <div class="card-body">
                 <div class="card-title">${p.name}</div>
@@ -818,6 +822,7 @@ function renderFood(list) {
                     </div>
                 </div>
             </div>`;
+        card.querySelector('.img-wrap').addEventListener('click', () => openImageLightbox(imgs, p.name));
         grid.appendChild(card);
     });
 }
@@ -833,15 +838,18 @@ function renderAccessories(list) {
         return;
     }
     list.forEach(p => {
+        const imgs = p.images || (p.image ? [p.image] : []);
+        const mainImg = imgs[0] || '';
         const waMsg = `Hi Nila's Aviary! I'd like to order *${p.name}* (${p.unit}). Please confirm availability.`;
         const card = document.createElement('div');
         card.className = 'bird-card';
         card.innerHTML = `
             <div class="img-wrap">
-                <img class="card-img" src="${p.image}" alt="${p.name}"
+                <img class="card-img" src="${mainImg}" alt="${p.name}"
                      onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
                 <div class="img-placeholder acc-ph" style="display:none">${p.emoji}</div>
                 ${p.badge ? `<div class="card-badge ${BADGE_CLASS[p.badge] || 'badge-popular'}">${p.badge}</div>` : ''}
+                ${imgs.length > 1 ? `<div class="multi-photo-badge"><i class="fas fa-images"></i> ${imgs.length}</div>` : ''}
             </div>
             <div class="card-body">
                 <div class="card-title">${p.name}</div>
@@ -858,8 +866,64 @@ function renderAccessories(list) {
                     </div>
                 </div>
             </div>`;
+        card.querySelector('.img-wrap').addEventListener('click', () => openImageLightbox(imgs, p.name));
         grid.appendChild(card);
     });
+}
+
+/* ============================================
+   IMAGE LIGHTBOX (multi-photo gallery)
+   ============================================ */
+let _lbImgs = [], _lbIdx = 0;
+
+function openImageLightbox(imgs, title) {
+    _lbImgs = Array.isArray(imgs) ? imgs : [imgs];
+    _lbIdx = 0;
+    _renderLightbox(title || '');
+}
+
+function _renderLightbox(title) {
+    let lb = document.getElementById('imgLightbox');
+    if (!lb) {
+        lb = document.createElement('div');
+        lb.id = 'imgLightbox';
+        lb.style.cssText = 'position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.93);display:flex;flex-direction:column;align-items:center;justify-content:center;';
+        lb.innerHTML = `
+            <button id="lbClose" style="position:absolute;top:18px;right:22px;background:rgba(255,255,255,.15);border:none;color:#fff;font-size:1.5rem;width:42px;height:42px;border-radius:50%;cursor:pointer;">&times;</button>
+            <div id="lbCounter" style="position:absolute;top:22px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.7);font-size:.85rem;letter-spacing:1px;"></div>
+            <div style="display:flex;align-items:center;gap:16px;max-width:95vw;">
+                <button id="lbPrev" style="background:rgba(255,255,255,.15);border:none;color:#fff;font-size:1.4rem;width:44px;height:44px;border-radius:50%;cursor:pointer;flex-shrink:0;">&#8249;</button>
+                <img id="lbImg" style="max-width:80vw;max-height:78vh;object-fit:contain;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.6);display:block;">
+                <button id="lbNext" style="background:rgba(255,255,255,.15);border:none;color:#fff;font-size:1.4rem;width:44px;height:44px;border-radius:50%;cursor:pointer;flex-shrink:0;">&#8250;</button>
+            </div>
+            <div id="lbThumbs" style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;justify-content:center;max-width:90vw;"></div>`;
+        document.body.appendChild(lb);
+        document.getElementById('lbClose').addEventListener('click', e => { e.stopPropagation(); lb.style.display = 'none'; });
+        lb.addEventListener('click', e => { if (e.target === lb) lb.style.display = 'none'; });
+        document.getElementById('lbPrev').addEventListener('click', e => { e.stopPropagation(); _lbIdx = (_lbIdx - 1 + _lbImgs.length) % _lbImgs.length; _updateLightbox(); });
+        document.getElementById('lbNext').addEventListener('click', e => { e.stopPropagation(); _lbIdx = (_lbIdx + 1) % _lbImgs.length; _updateLightbox(); });
+        document.addEventListener('keydown', e => {
+            if (lb.style.display === 'none') return;
+            if (e.key === 'ArrowLeft')  { _lbIdx = (_lbIdx - 1 + _lbImgs.length) % _lbImgs.length; _updateLightbox(); }
+            if (e.key === 'ArrowRight') { _lbIdx = (_lbIdx + 1) % _lbImgs.length; _updateLightbox(); }
+            if (e.key === 'Escape')     { lb.style.display = 'none'; }
+        });
+    }
+    lb.style.display = 'flex';
+    _updateLightbox();
+}
+
+function _updateLightbox() {
+    const lb = document.getElementById('imgLightbox');
+    document.getElementById('lbImg').src = _lbImgs[_lbIdx];
+    document.getElementById('lbCounter').textContent = _lbImgs.length > 1 ? `${_lbIdx + 1} / ${_lbImgs.length}` : '';
+    document.getElementById('lbPrev').style.visibility = _lbImgs.length > 1 ? 'visible' : 'hidden';
+    document.getElementById('lbNext').style.visibility = _lbImgs.length > 1 ? 'visible' : 'hidden';
+    const thumbs = document.getElementById('lbThumbs');
+    thumbs.innerHTML = _lbImgs.length > 1 ? _lbImgs.map((src, i) =>
+        `<img src="${src}" data-i="${i}" style="width:60px;height:60px;object-fit:cover;border-radius:6px;cursor:pointer;opacity:${i===_lbIdx?1:.45};border:2px solid ${i===_lbIdx?'#F4A300':'transparent'};transition:all .2s;">`
+    ).join('') : '';
+    thumbs.querySelectorAll('img').forEach(t => t.addEventListener('click', e => { e.stopPropagation(); _lbIdx = +t.dataset.i; _updateLightbox(); }));
 }
 
 /* ============================================
