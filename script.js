@@ -9,7 +9,7 @@ Bird photos — Add your photos to the [images/](C:\Users\Vidhya\nilas-aviary\im
 african-grey.jpg, cockatiel-grey.jpg, cockatiel-lutino.jpg, budgerigar.jpg, lovebird.jpg, sun-conure.jpg, alexandrine.jpg, ringneck-green.jpg, ringneck-blue.jpg, canary.jpg, zebra-finch.jpg, macaw.jpg
 (Until you add photos, a coloured emoji placeholder shows automatically)
 
-Contact details — Search for nilas.aviary@gmail.com and Your City, India in index.html and replace with your actual details
+Contact details — Search for nilasaviary@gmail.com and Your City, India in index.html and replace with your actual details
    ============================================ */
 
 const WA_NUMBER = '917200911938'; // ← UPDATE THIS
