@@ -597,43 +597,13 @@ const videos = [
     },
     {
         id: 3,
-        title: 'Lovebird Pair Playing',
-        bird: "Fischer's Lovebird",
-        type: 'youtube',
-        src: 'https://www.youtube.com/embed/VIDEO_ID_3',
-        thumbnail: '',
-        duration: '2:10',
-        emoji: '❤️'
-    },
-    {
-        id: 4,
-        title: 'Sun Conure — Daily Routine',
+        title: 'Sun Conure Pair',
         bird: 'Sun Conure',
-        type: 'youtube',
-        src: 'https://www.youtube.com/embed/VIDEO_ID_4',
+        type: 'local',
+        src: 'videos/Sunconure_pair.mp4',
         thumbnail: '',
-        duration: '3:22',
+        duration: '',
         emoji: '☀️'
-    },
-    {
-        id: 5,
-        title: 'Indian Ringneck Speaking Words',
-        bird: 'Indian Ringneck',
-        type: 'youtube',
-        src: 'https://www.youtube.com/embed/VIDEO_ID_5',
-        thumbnail: '',
-        duration: '1:30',
-        emoji: '💙'
-    },
-    {
-        id: 6,
-        title: 'Budgies — Flock in Aviary',
-        bird: 'Budgerigar',
-        type: 'youtube',
-        src: 'https://www.youtube.com/embed/VIDEO_ID_6',
-        thumbnail: '',
-        duration: '2:05',
-        emoji: '💚'
     }
 ];
 
@@ -651,10 +621,13 @@ function renderVideos() {
         const card = document.createElement('div');
         card.className = 'video-card';
 
+        const isLocalNoThumb = v.type === 'local' && !v.thumbnail;
         const thumbHTML = v.thumbnail
             ? `<img src="${v.thumbnail}" alt="${v.title}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`
-            : '';
-        const placeholderStyle = v.thumbnail ? 'display:none' : '';
+            : isLocalNoThumb
+                ? `<video class="vthumb-vid-${v.id}" src="${v.src}" muted preload="auto" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none;"></video>`
+                : '';
+        const placeholderStyle = (v.thumbnail || isLocalNoThumb) ? 'display:none' : '';
 
         card.innerHTML = `
             <div class="video-thumb">
@@ -673,6 +646,13 @@ function renderVideos() {
 
         card.addEventListener('click', () => openVideoModal(v));
         grid.appendChild(card);
+
+        if (isLocalNoThumb) {
+            const vidEl = card.querySelector(`.vthumb-vid-${v.id}`);
+            if (vidEl) {
+                vidEl.addEventListener('loadeddata', () => { vidEl.currentTime = 1; });
+            }
+        }
     });
 }
 
