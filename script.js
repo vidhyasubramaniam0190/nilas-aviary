@@ -298,7 +298,7 @@ document.querySelectorAll('.nav-link').forEach(l => l.addEventListener('click', 
 /* ============================================
    BIRDS — RENDER
    ============================================ */
-const BADGE_CLASS = { Popular: 'badge-popular', New: 'badge-new', Pair: 'badge-pair', Rare: 'badge-rare', 'Best Value': 'badge-value' };
+const BADGE_CLASS = { Popular: 'badge-popular', New: 'badge-new', Pair: 'badge-pair', Rare: 'badge-rare', 'Best Value': 'badge-value', Bestseller: 'badge-popular', Premium: 'badge-rare' };
 
 function renderBirds(list) {
     const grid = document.getElementById('birdsGrid');
@@ -349,9 +349,9 @@ function renderBirds(list) {
    FILTER + SEARCH
    ============================================ */
 let activeFilter = 'all';
-document.querySelectorAll('.filter-btn').forEach(btn => {
+document.querySelectorAll('#birdsFilter .filter-btn').forEach(btn => {
     btn.addEventListener('click', () => {
-        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('#birdsFilter .filter-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         activeFilter = btn.dataset.filter;
         applyFilters();
@@ -420,12 +420,36 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal()
    ============================================ */
 function populateSelect() {
     const sel = document.getElementById('orderBird');
+
+    const birdsGroup = document.createElement('optgroup');
+    birdsGroup.label = '🦜 Birds';
     birds.forEach(b => {
         const o = document.createElement('option');
         o.value = b.name;
         o.textContent = `${b.name} — ${inr(b.price)}${b.available ? '' : ' (Waitlist)'}`;
-        sel.appendChild(o);
+        birdsGroup.appendChild(o);
     });
+    sel.appendChild(birdsGroup);
+
+    const foodGroup = document.createElement('optgroup');
+    foodGroup.label = '🌿 Bird Food';
+    foodProducts.forEach(p => {
+        const o = document.createElement('option');
+        o.value = p.name;
+        o.textContent = `${p.name} — ${p.unit}`;
+        foodGroup.appendChild(o);
+    });
+    sel.appendChild(foodGroup);
+
+    const accGroup = document.createElement('optgroup');
+    accGroup.label = '🏠 Accessories';
+    accessories.forEach(p => {
+        const o = document.createElement('option');
+        o.value = p.name;
+        o.textContent = `${p.name} — ${p.unit}`;
+        accGroup.appendChild(o);
+    });
+    sel.appendChild(accGroup);
 }
 
 function fillOrder(name) {
@@ -577,13 +601,14 @@ const videos = [
     },
     {
         id: 2,
-        title: 'Cockatiel Whistling Tunes',
-        bird: 'Cockatiel',
-        type: 'youtube',
-        src: 'https://www.youtube.com/embed/VIDEO_ID_2',
+        title: "Nila's Aviary — Instagram Reel",
+        bird: 'Featured Bird',
+        type: 'instagram',
+        src: '',
+        igUrl: 'https://www.instagram.com/reel/DRbwX47Aa2D/',
         thumbnail: '',
-        duration: '0:58',
-        emoji: '🐦'
+        duration: '',
+        emoji: '📸'
     },
     {
         id: 3,
@@ -652,8 +677,8 @@ function renderVideos() {
                 <div class="thumb-placeholder" style="${placeholderStyle}">${v.emoji}</div>
                 <div class="play-btn"><i class="fas fa-play"></i></div>
                 <div class="video-duration">${v.duration}</div>
-                <div class="video-type-badge ${v.type === 'youtube' ? 'badge-yt' : v.type === 'facebook' ? 'badge-fb' : 'badge-local'}">
-                    ${v.type === 'youtube' ? '<i class="fab fa-youtube"></i> YouTube' : v.type === 'facebook' ? '<i class="fab fa-facebook"></i> Facebook' : '<i class="fas fa-video"></i> Video'}
+                <div class="video-type-badge ${v.type === 'youtube' ? 'badge-yt' : v.type === 'facebook' ? 'badge-fb' : v.type === 'instagram' ? 'badge-ig' : 'badge-local'}">
+                    ${v.type === 'youtube' ? '<i class="fab fa-youtube"></i> YouTube' : v.type === 'facebook' ? '<i class="fab fa-facebook"></i> Facebook' : v.type === 'instagram' ? '<i class="fab fa-instagram"></i> Instagram' : '<i class="fas fa-video"></i> Video'}
                 </div>
             </div>
             <div class="video-info">
@@ -681,6 +706,15 @@ function openVideoModal(v) {
                     <i class="fab fa-facebook"></i> Watch on Facebook
                 </a>
             </div>`;
+    } else if (v.type === 'instagram') {
+        wrapper.innerHTML = `
+            <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px;text-align:center;background:linear-gradient(135deg,#405DE6,#833AB4,#E1306C,#FD1D1D);border-radius:0 0 var(--rl) var(--rl)">
+                <i class="fab fa-instagram" style="font-size:4rem;color:#fff;margin-bottom:18px"></i>
+                <p style="color:#fff;font-size:1.05rem;margin-bottom:22px">This video is hosted on Instagram.<br>Click below to watch the reel.</p>
+                <a href="${v.igUrl}" target="_blank" style="background:#fff;color:#E1306C;padding:12px 28px;border-radius:50px;font-weight:700;font-size:1rem;text-decoration:none;display:inline-flex;align-items:center;gap:8px">
+                    <i class="fab fa-instagram"></i> Watch on Instagram
+                </a>
+            </div>`;
     } else {
         wrapper.innerHTML = `<video controls autoplay><source src="${v.src}" type="video/mp4">Your browser does not support video.</video>`;
     }
@@ -702,9 +736,164 @@ document.getElementById('videoModalOverlay').addEventListener('click', e => {
 document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); closeVideoModal(); } });
 
 /* ============================================
+   FOOD PRODUCTS DATA
+   ─────────────────────────────────────────
+   To add a product: copy one entry, change values.
+   image: put your photo in images/food/ folder
+          e.g. 'images/food/myphoto.jpg'
+          Emoji shows automatically until you add a photo.
+   ============================================ */
+const foodProducts = [
+    { id:'f1',  name:'Cockatiel Seed Mix',      subtitle:'Premium Blend · 500g',      emoji:'🌾', image:'images/food/cockatiel-seed.jpg',      category:['seeds'],        badge:'Popular',    unit:'₹250 / 500g' },
+    { id:'f2',  name:'African Grey Parrot Mix', subtitle:'Nut & Seed Blend · 1kg',    emoji:'🥜', image:'images/food/parrot-mix.jpg',           category:['seeds'],        badge:'Bestseller', unit:'₹550 / kg' },
+    { id:'f3',  name:'Budgerigar Seed Mix',     subtitle:'Vitamin Enriched · 500g',   emoji:'🌿', image:'images/food/budgie-seed.jpg',          category:['seeds'],        badge:null,         unit:'₹180 / 500g' },
+    { id:'f4',  name:'Sprouting Seeds Kit',     subtitle:'3-Seed Blend · 500g',       emoji:'🌱', image:'images/food/sprouting.jpg',            category:['seeds'],        badge:null,         unit:'₹220 / 500g' },
+    { id:'f5',  name:'Parrot Pellets',          subtitle:'Balanced Diet · 500g',      emoji:'🟡', image:'images/food/parrot-pellets.jpg',       category:['pellets'],      badge:'New',        unit:'₹480 / 500g' },
+    { id:'f6',  name:'Cockatiel Pellets',       subtitle:'Small Bite · 500g',         emoji:'🟠', image:'images/food/cockatiel-pellets.jpg',    category:['pellets'],      badge:null,         unit:'₹420 / 500g' },
+    { id:'f7',  name:'Millet Spray Bundle',     subtitle:'Natural Treat · Pack of 5', emoji:'🌾', image:'images/food/millet-spray.jpg',         category:['treats'],       badge:'Popular',    unit:'₹120 / 5pc' },
+    { id:'f8',  name:'Dried Fruit & Veggie Mix',subtitle:'Mixed Treats · 200g',       emoji:'🍎', image:'images/food/fruit-mix.jpg',            category:['treats'],       badge:null,         unit:'₹320 / 200g' },
+    { id:'f9',  name:'Eggfood (Breeding)',      subtitle:'High Protein · 500g',       emoji:'🥚', image:'images/food/eggfood.jpg',              category:['treats'],       badge:null,         unit:'₹350 / 500g' },
+    { id:'f10', name:'Calcium Supplement',      subtitle:'Liquid Drops · 100ml',      emoji:'💊', image:'images/food/calcium.jpg',              category:['supplements'],  badge:null,         unit:'₹280 / bottle' },
+    { id:'f11', name:'Multivitamin Drops',      subtitle:'All-Bird Formula · 100ml',  emoji:'🩺', image:'images/food/vitamins.jpg',             category:['supplements'],  badge:'New',        unit:'₹320 / bottle' },
+    { id:'f12', name:'Cuttlebone Mineral Block',subtitle:'Natural Calcium · 3pc',     emoji:'🦴', image:'images/food/cuttlebone.jpg',           category:['supplements'],  badge:null,         unit:'₹150 / 3pc' },
+];
+
+/* ============================================
+   ACCESSORIES DATA
+   ─────────────────────────────────────────
+   To add an item: copy one entry, change values.
+   image: put your photo in images/accessories/ folder
+          e.g. 'images/accessories/myphoto.jpg'
+   ============================================ */
+const accessories = [
+    { id:'a1',  name:'Medium Steel Cage',       subtitle:'24"×18"×24" · Powder Coated',emoji:'🏠', image:'images/accessories/cage-medium.jpg',    category:['cage'],    badge:'Popular',  unit:'₹3,500' },
+    { id:'a2',  name:'Large Parrot Cage',       subtitle:'36"×24"×48" · Heavy Duty',   emoji:'🏰', image:'images/accessories/cage-large.jpg',     category:['cage'],    badge:'Premium',  unit:'₹8,500' },
+    { id:'a3',  name:'Travel Carrier Cage',     subtitle:'Lightweight · Foldable',     emoji:'✈️', image:'images/accessories/travel-cage.jpg',    category:['cage'],    badge:null,       unit:'₹1,800' },
+    { id:'a4',  name:'Wooden T-Perch',          subtitle:'Natural Wood · Large',       emoji:'🌳', image:'images/accessories/t-perch.jpg',        category:['perch'],   badge:null,       unit:'₹280' },
+    { id:'a5',  name:'Rope Perch Set',          subtitle:'Braided Cotton · 2pc',       emoji:'🪢', image:'images/accessories/rope-perch.jpg',    category:['perch'],   badge:'Popular',  unit:'₹350 / set' },
+    { id:'a6',  name:'Java Wood Perch',         subtitle:'Natural Branch · Medium',    emoji:'🌿', image:'images/accessories/java-perch.jpg',    category:['perch'],   badge:'New',      unit:'₹420' },
+    { id:'a7',  name:'Foraging Toy Set',        subtitle:'3-Piece Activity Bundle',    emoji:'🎯', image:'images/accessories/foraging-toys.jpg', category:['toy'],     badge:'Popular',  unit:'₹450 / set' },
+    { id:'a8',  name:'Bird Swing',              subtitle:'Wooden & Rope · Small',      emoji:'🎠', image:'images/accessories/swing.jpg',          category:['toy'],     badge:null,       unit:'₹220' },
+    { id:'a9',  name:'Bell & Ring Toy',         subtitle:'Stainless Steel · Safe',     emoji:'🔔', image:'images/accessories/bell-toy.jpg',       category:['toy'],     badge:null,       unit:'₹180' },
+    { id:'a10', name:'Steel Feeder Bowl Set',   subtitle:'Stainless Steel · 2pc',      emoji:'🥣', image:'images/accessories/feeder-bowls.jpg',  category:['feeder'],  badge:null,       unit:'₹250 / set' },
+    { id:'a11', name:'Auto Water Dispenser',    subtitle:'Bottle Style · 300ml',       emoji:'💧', image:'images/accessories/water-dispenser.jpg',category:['feeder'],  badge:'New',      unit:'₹320' },
+    { id:'a12', name:'Bird Harness & Leash',    subtitle:'Adjustable · Size S/M/L',    emoji:'🎀', image:'images/accessories/harness.jpg',        category:['other'],   badge:'New',      unit:'₹480' },
+    { id:'a13', name:'Grooming Kit',            subtitle:'Nail Clipper + Brush Set',   emoji:'✂️', image:'images/accessories/grooming.jpg',       category:['other'],   badge:null,       unit:'₹650 / kit' },
+    { id:'a14', name:'Cockatiel Nesting Box',   subtitle:'Wooden · With Entry Perch',  emoji:'🪺', image:'images/accessories/nest-box.jpg',       category:['other'],   badge:null,       unit:'₹380' },
+];
+
+/* ============================================
+   FOOD — RENDER
+   ============================================ */
+function renderFood(list) {
+    const grid = document.getElementById('foodGrid');
+    grid.innerHTML = '';
+    if (!list.length) {
+        grid.innerHTML = '<div class="no-results"><i class="fas fa-seedling"></i><h3>No products found</h3><p>Try a different filter</p></div>';
+        return;
+    }
+    list.forEach(p => {
+        const waMsg = `Hi Nila's Aviary! I'd like to order *${p.name}* (${p.unit}). Please confirm availability and delivery details.`;
+        const card = document.createElement('div');
+        card.className = 'bird-card';
+        card.innerHTML = `
+            <div class="img-wrap">
+                <img class="card-img" src="${p.image}" alt="${p.name}"
+                     onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+                <div class="img-placeholder food-ph" style="display:none">${p.emoji}</div>
+                ${p.badge ? `<div class="card-badge ${BADGE_CLASS[p.badge] || 'badge-popular'}">${p.badge}</div>` : ''}
+            </div>
+            <div class="card-body">
+                <div class="card-title">${p.name}</div>
+                <div class="card-sp">${p.subtitle}</div>
+                <div class="card-foot">
+                    <div>
+                        <div class="price-lbl">Price</div>
+                        <div class="price-amt">${p.unit}</div>
+                    </div>
+                    <div class="card-actions">
+                        <a href="${waLink(waMsg)}" class="ic-btn wa-btn" target="_blank" title="Order on WhatsApp">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>`;
+        grid.appendChild(card);
+    });
+}
+
+/* ============================================
+   ACCESSORIES — RENDER
+   ============================================ */
+function renderAccessories(list) {
+    const grid = document.getElementById('accGrid');
+    grid.innerHTML = '';
+    if (!list.length) {
+        grid.innerHTML = '<div class="no-results"><i class="fas fa-home"></i><h3>No products found</h3><p>Try a different filter</p></div>';
+        return;
+    }
+    list.forEach(p => {
+        const waMsg = `Hi Nila's Aviary! I'd like to order *${p.name}* (${p.unit}). Please confirm availability.`;
+        const card = document.createElement('div');
+        card.className = 'bird-card';
+        card.innerHTML = `
+            <div class="img-wrap">
+                <img class="card-img" src="${p.image}" alt="${p.name}"
+                     onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+                <div class="img-placeholder acc-ph" style="display:none">${p.emoji}</div>
+                ${p.badge ? `<div class="card-badge ${BADGE_CLASS[p.badge] || 'badge-popular'}">${p.badge}</div>` : ''}
+            </div>
+            <div class="card-body">
+                <div class="card-title">${p.name}</div>
+                <div class="card-sp">${p.subtitle}</div>
+                <div class="card-foot">
+                    <div>
+                        <div class="price-lbl">Price</div>
+                        <div class="price-amt">${p.unit}</div>
+                    </div>
+                    <div class="card-actions">
+                        <a href="${waLink(waMsg)}" class="ic-btn wa-btn" target="_blank" title="Order on WhatsApp">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>`;
+        grid.appendChild(card);
+    });
+}
+
+/* ============================================
+   FOOD FILTER
+   ============================================ */
+let activeFoodFilter = 'all';
+document.querySelectorAll('#foodFilter .filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('#foodFilter .filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeFoodFilter = btn.dataset.filter;
+        renderFood(foodProducts.filter(p => activeFoodFilter === 'all' || p.category.includes(activeFoodFilter)));
+    });
+});
+
+/* ============================================
+   ACCESSORIES FILTER
+   ============================================ */
+let activeAccFilter = 'all';
+document.querySelectorAll('#accFilter .filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('#accFilter .filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeAccFilter = btn.dataset.filter;
+        renderAccessories(accessories.filter(p => activeAccFilter === 'all' || p.category.includes(activeAccFilter)));
+    });
+});
+
+/* ============================================
    INIT
    ============================================ */
 renderBirds(birds);
 renderReviews();
 renderVideos();
 populateSelect();
+renderFood(foodProducts);
+renderAccessories(accessories);

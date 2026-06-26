@@ -18,22 +18,11 @@
         <div class="container">
             <div class="nav-brand">
                 <div class="brand-logo">
-                    <svg class="logo-bird" viewBox="0 0 28 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M19 3C21 1 23 1.5 23 1.5" stroke="#F4A300" stroke-width="1.9" stroke-linecap="round"/>
-                        <path d="M16.5 4.5C18 2 21 2 21 2" stroke="#FFD54F" stroke-width="1.4" stroke-linecap="round"/>
-                        <circle cx="16.5" cy="11" r="7" fill="white"/>
-                        <circle cx="19" cy="9.5" r="2.2" fill="#1A4A1A"/>
-                        <circle cx="19.7" cy="8.8" r=".8" fill="white"/>
-                        <path d="M11 12.5 Q6.5 14.5 7.5 17.5 Q11 15.5 12.5 13.5Z" fill="#F4A300"/>
-                        <ellipse cx="16.5" cy="25" rx="7" ry="9" fill="white" opacity=".92"/>
-                        <path d="M14.5 33.5 Q10.5 37.5 8.5 35.5" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
-                        <path d="M16.5 34.5 Q16.5 38.5 18.5 36.5" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
-                        <path d="M18.5 33.5 Q22.5 37 20.5 35" stroke="rgba(255,255,255,.7)" stroke-width="1.8" stroke-linecap="round"/>
-                    </svg>
+                    <img class="logo-bird" src="images/logo.png" alt="Nila's Aviary Logo">
                 </div>
                 <div class="brand-text">
                     <span class="brand-name">Nila's <span class="brand-aviary">Aviary</span></span>
-                    <span class="brand-tagline">Premium Pet Birds</span>
+                    <span class="brand-tagline">Birds · Food · Accessories</span>
                 </div>
             </div>
             <button class="nav-toggle" id="navToggle" aria-label="Menu">
@@ -42,10 +31,11 @@
             <ul class="nav-menu" id="navMenu">
                 <li><a href="#home" class="nav-link">Home</a></li>
                 <li><a href="#birds" class="nav-link">Our Birds</a></li>
+                <li><a href="#food" class="nav-link">Bird Food</a></li>
+                <li><a href="#accessories" class="nav-link">Accessories</a></li>
                 <li><a href="#videos" class="nav-link">Videos</a></li>
                 <li><a href="#about" class="nav-link">About</a></li>
                 <li><a href="#reviews" class="nav-link">Reviews</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
                 <li><a href="#order" class="nav-link nav-cta">Order Now</a></li>
             </ul>
         </div>
@@ -53,6 +43,8 @@
 
     <!-- ===== HERO ===== -->
     <section class="hero" id="home">
+        <img src="images/sun-conure_background.jpg" class="hero-bg-img" alt="">
+        <div class="hero-bg-overlay"></div>
         <div class="hero-orb orb1"></div>
         <div class="hero-orb orb2"></div>
         <div class="hero-orb orb3"></div>
@@ -61,15 +53,24 @@
             <div class="hero-inner">
                 <div class="hero-content">
                     <div class="hero-badge"><span class="badge-dot"></span>🏆 Trusted Bird Shop Since 2018</div>
-                    <h1>Welcome to <span>Nila's Aviary</span></h1>
-                    <p>Discover beautiful, healthy, hand-raised pet birds. Every bird comes with care guidance and lifelong WhatsApp support.</p>
+                    <h1><span>Nila's Aviary</span></h1>
+                    <div class="hero-tagline">
+                        <span>Premium Birds</span>
+                        <i class="fas fa-circle"></i>
+                        <span>Bird Food</span>
+                        <i class="fas fa-circle"></i>
+                        <span>Accessories</span>
+                    </div>
+                    <p>Discover beautiful, healthy, hand-raised pet birds. Plus premium bird food, cages, toys, and accessories — everything your feathered friend needs, all in one trusted shop.</p>
                     <div class="hero-stats">
                         <div class="stat"><span class="stat-num">500+</span><span class="stat-label">Happy Customers</span></div>
                         <div class="stat"><span class="stat-num">50+</span><span class="stat-label">Bird Species</span></div>
-                        <div class="stat"><span class="stat-num">8+</span><span class="stat-label">Years Experience</span></div>
+                        <div class="stat"><span class="stat-num">100+</span><span class="stat-label">Accessories</span></div>
+                        <div class="stat"><span class="stat-num">8+</span><span class="stat-label">Yrs Experience</span></div>
                     </div>
                     <div class="hero-buttons">
                         <a href="#birds" class="btn btn-primary"><i class="fas fa-dove"></i> Browse Birds</a>
+                        <a href="#shop" class="btn btn-secondary"><i class="fas fa-store"></i> Visit Shop</a>
                         <a href="https://wa.me/917200911938?text=Hi%20Nila's%20Aviary!%20I'm%20interested%20in%20your%20birds." class="btn btn-whatsapp" target="_blank">
                             <i class="fab fa-whatsapp"></i> Chat on WhatsApp
                         </a>
@@ -79,19 +80,21 @@
                     <div class="hero-glass-card">
                         <div class="glass-birds">
                             <div class="gb gb1">🦜</div>
-                            <div class="gb gb2">🐦</div>
-                            <div class="gb gb3">🦚</div>
-                            <div class="gb gb4">☀️</div>
-                            <div class="gb gb5">🦋</div>
+                            <div class="gb gb2">🌿</div>
+                            <div class="gb gb3">🐦</div>
+                            <div class="gb gb4">🏠</div>
+                            <div class="gb gb5">⭐</div>
                         </div>
                         <div class="glass-card-inner">
-                            <div class="gc-title">Premium Birds</div>
-                            <div class="gc-sub">Hand-Raised &amp; Tamed</div>
+                            <div class="gc-title">One-Stop Bird Shop</div>
+                            <div class="gc-sub">Birds · Food · Accessories</div>
                             <div class="gc-features">
+                                <span><i class="fas fa-dove"></i> 50+ Premium Bird Species</span>
+                                <span><i class="fas fa-seedling"></i> Natural Food &amp; Treats</span>
+                                <span><i class="fas fa-home"></i> Cages, Toys &amp; Perches</span>
                                 <span><i class="fas fa-shield-alt"></i> Health Guaranteed</span>
                                 <span><i class="fas fa-truck"></i> Pan India Delivery</span>
-                                <span><i class="fab fa-whatsapp"></i> WhatsApp Support</span>
-                                <span><i class="fas fa-heart"></i> Lifelong Care Guidance</span>
+                                <span><i class="fas fa-heart"></i> Lifelong WhatsApp Support</span>
                             </div>
                         </div>
                     </div>
@@ -100,15 +103,72 @@
         </div>
     </section>
 
-    <!-- ===== FEATURES BAR ===== -->
-    <div class="features-bar">
+    <!-- ===== SHOP CATEGORIES ===== -->
+    <section class="shop-cats" id="shop">
         <div class="container">
-            <div class="feat"><i class="fas fa-heart"></i><span>Hand-Raised & Tamed</span></div>
-            <div class="feat"><i class="fas fa-shield-alt"></i><span>Health Guaranteed</span></div>
-            <div class="feat"><i class="fas fa-truck"></i><span>Safe Delivery Pan India</span></div>
-            <div class="feat"><i class="fab fa-whatsapp"></i><span>24/7 WhatsApp Support</span></div>
+            <div class="section-header">
+                <span class="tag">Everything You Need</span>
+                <h2>One-Stop Bird Shop</h2>
+                <p>Hand-raised birds, premium nutrition, and quality accessories — all from one trusted source</p>
+            </div>
+            <div class="cats-grid">
+
+                <div class="cat-photo-card">
+                    <img src="images/sun-conure.jpg" class="cat-bg-img" alt="Premium Birds"
+                         onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+                    <div class="cat-fallback-bg cat-birds-bg" style="display:none"></div>
+                    <div class="cat-photo-overlay"></div>
+                    <div class="cat-photo-content">
+                        <span class="cat-photo-icon">🦜</span>
+                        <h3>Premium Birds</h3>
+                        <p>50+ hand-raised species, health-checked and ready for their forever home</p>
+                        <div class="cat-tag-list">
+                            <span class="cat-tag">Parrots</span>
+                            <span class="cat-tag">Cockatiels</span>
+                            <span class="cat-tag">Lovebirds</span>
+                            <span class="cat-tag">Macaws</span>
+                        </div>
+                        <a href="#birds" class="btn btn-primary"><i class="fas fa-dove"></i> Browse Birds</a>
+                    </div>
+                </div>
+
+                <div class="cat-photo-card">
+                    <div class="cat-fallback-bg cat-food-bg"></div>
+                    <div class="cat-photo-overlay"></div>
+                    <div class="cat-photo-content">
+                        <span class="cat-photo-icon">🌿</span>
+                        <h3>Bird Food & Nutrition</h3>
+                        <p>Premium seeds, pellets, fruit treats & vitamin supplements for every species</p>
+                        <div class="cat-tag-list">
+                            <span class="cat-tag">Seed Mix</span>
+                            <span class="cat-tag">Pellets</span>
+                            <span class="cat-tag">Treats</span>
+                            <span class="cat-tag">Vitamins</span>
+                        </div>
+                        <a href="#food" class="btn btn-whatsapp"><i class="fas fa-seedling"></i> Browse Food</a>
+                    </div>
+                </div>
+
+                <div class="cat-photo-card">
+                    <div class="cat-fallback-bg cat-acc-bg"></div>
+                    <div class="cat-photo-overlay"></div>
+                    <div class="cat-photo-content">
+                        <span class="cat-photo-icon">🏠</span>
+                        <h3>Cages & Accessories</h3>
+                        <p>Spacious cages, wooden perches, colourful toys, feeders & grooming supplies</p>
+                        <div class="cat-tag-list">
+                            <span class="cat-tag">Cages</span>
+                            <span class="cat-tag">Perches</span>
+                            <span class="cat-tag">Toys</span>
+                            <span class="cat-tag">Feeders</span>
+                        </div>
+                        <a href="#accessories" class="btn btn-primary"><i class="fas fa-home"></i> Browse Accessories</a>
+                    </div>
+                </div>
+
+            </div>
         </div>
-    </div>
+    </section>
 
     <!-- ===== BIRDS SECTION ===== -->
     <section class="birds-section" id="birds">
@@ -119,7 +179,7 @@
                 <p>Each bird is hand-raised, health-checked, and ready to be your lifelong feathered friend</p>
             </div>
 
-            <div class="filter-bar">
+            <div class="filter-bar" id="birdsFilter">
                 <button class="filter-btn active" data-filter="all">All Birds</button>
                 <button class="filter-btn" data-filter="parrot">Parrots</button>
                 <button class="filter-btn" data-filter="small">Small Birds</button>
@@ -143,6 +203,45 @@
             <div id="modalContent"></div>
         </div>
     </div>
+
+    <!-- ===== BIRD FOOD SECTION ===== -->
+    <section class="products-section food-section" id="food">
+        <div class="container">
+            <div class="section-header">
+                <span class="tag tag-gold">🌿 Fresh & Natural</span>
+                <h2>Bird Food & Nutrition</h2>
+                <p>Premium seeds, pellets, treats, and supplements for healthy, happy birds of every species</p>
+            </div>
+            <div class="filter-bar" id="foodFilter">
+                <button class="filter-btn active" data-filter="all">All Food</button>
+                <button class="filter-btn" data-filter="seeds">Seeds</button>
+                <button class="filter-btn" data-filter="pellets">Pellets</button>
+                <button class="filter-btn" data-filter="treats">Treats</button>
+                <button class="filter-btn" data-filter="supplements">Supplements</button>
+            </div>
+            <div class="birds-grid" id="foodGrid"></div>
+        </div>
+    </section>
+
+    <!-- ===== ACCESSORIES SECTION ===== -->
+    <section class="products-section acc-section" id="accessories">
+        <div class="container">
+            <div class="section-header">
+                <span class="tag">🏠 Quality Guaranteed</span>
+                <h2>Cages & Accessories</h2>
+                <p>Everything your bird needs to live, play, and thrive — cages, toys, perches and more</p>
+            </div>
+            <div class="filter-bar" id="accFilter">
+                <button class="filter-btn active" data-filter="all">All Items</button>
+                <button class="filter-btn" data-filter="cage">Cages</button>
+                <button class="filter-btn" data-filter="perch">Perches</button>
+                <button class="filter-btn" data-filter="toy">Toys</button>
+                <button class="filter-btn" data-filter="feeder">Feeders</button>
+                <button class="filter-btn" data-filter="other">Other</button>
+            </div>
+            <div class="birds-grid" id="accGrid"></div>
+        </div>
+    </section>
 
     <!-- ===== VIDEOS SECTION ===== -->
     <section class="videos-section" id="videos">
@@ -278,9 +377,9 @@
                             <input type="text" id="orderCity" placeholder="City, State">
                         </div>
                         <div class="form-group">
-                            <label><i class="fas fa-dove"></i> Bird Interested In *</label>
+                            <label><i class="fas fa-store"></i> Product Interested In *</label>
                             <select id="orderBird" required>
-                                <option value="">— Select a Bird —</option>
+                                <option value="">— Select a Product —</option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -318,18 +417,7 @@
                 <div class="footer-brand">
                     <div class="footer-logo">
                         <div class="brand-logo">
-                            <svg class="logo-bird" viewBox="0 0 28 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M19 3C21 1 23 1.5 23 1.5" stroke="#F4A300" stroke-width="1.9" stroke-linecap="round"/>
-                                <path d="M16.5 4.5C18 2 21 2 21 2" stroke="#FFD54F" stroke-width="1.4" stroke-linecap="round"/>
-                                <circle cx="16.5" cy="11" r="7" fill="white"/>
-                                <circle cx="19" cy="9.5" r="2.2" fill="#1A4A1A"/>
-                                <circle cx="19.7" cy="8.8" r=".8" fill="white"/>
-                                <path d="M11 12.5 Q6.5 14.5 7.5 17.5 Q11 15.5 12.5 13.5Z" fill="#F4A300"/>
-                                <ellipse cx="16.5" cy="25" rx="7" ry="9" fill="white" opacity=".92"/>
-                                <path d="M14.5 33.5 Q10.5 37.5 8.5 35.5" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
-                                <path d="M16.5 34.5 Q16.5 38.5 18.5 36.5" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
-                                <path d="M18.5 33.5 Q22.5 37 20.5 35" stroke="rgba(255,255,255,.7)" stroke-width="1.8" stroke-linecap="round"/>
-                            </svg>
+                            <img class="logo-bird" src="images/logo.png" alt="Nila's Aviary Logo">
                         </div>
                         <div><strong>Nila's Aviary</strong><small>Premium Pet Birds</small></div>
                     </div>
@@ -345,19 +433,20 @@
                     <ul>
                         <li><a href="#home">Home</a></li>
                         <li><a href="#birds">Our Birds</a></li>
-                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#food">Bird Food</a></li>
+                        <li><a href="#accessories">Accessories</a></li>
                         <li><a href="#reviews">Reviews</a></li>
                         <li><a href="#order">Order Now</a></li>
                     </ul>
                 </div>
                 <div class="footer-links">
-                    <h4>Categories</h4>
+                    <h4>Shop</h4>
                     <ul>
-                        <li><a href="#birds">Parrots & Cockatoos</a></li>
-                        <li><a href="#birds">Cockatiels & Budgies</a></li>
-                        <li><a href="#birds">Lovebirds & Conures</a></li>
-                        <li><a href="#birds">Finches & Canaries</a></li>
-                        <li><a href="#birds">Exotic Breeds</a></li>
+                        <li><a href="#birds">Premium Birds</a></li>
+                        <li><a href="#food">Seeds & Pellets</a></li>
+                        <li><a href="#food">Treats & Supplements</a></li>
+                        <li><a href="#accessories">Cages & Perches</a></li>
+                        <li><a href="#accessories">Toys & Feeders</a></li>
                     </ul>
                 </div>
                 <div class="footer-contact">
