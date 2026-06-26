@@ -302,6 +302,7 @@ const BADGE_CLASS = { Popular: 'badge-popular', New: 'badge-new', Pair: 'badge-p
 
 function renderBirds(list) {
     const grid = document.getElementById('birdsGrid');
+    if (!grid) return;
     grid.innerHTML = '';
     if (!list.length) {
         grid.innerHTML = '<div class="no-results"><i class="fas fa-dove"></i><h3>No birds found</h3><p>Try a different search or filter</p></div>';
@@ -357,7 +358,7 @@ document.querySelectorAll('#birdsFilter .filter-btn').forEach(btn => {
         applyFilters();
     });
 });
-document.getElementById('searchInput').addEventListener('input', applyFilters);
+if (document.getElementById('searchInput')) document.getElementById('searchInput').addEventListener('input', applyFilters);
 
 function applyFilters() {
     const q = document.getElementById('searchInput').value.toLowerCase().trim();
@@ -411,8 +412,8 @@ function closeModal() {
     document.getElementById('modalOverlay').classList.remove('open');
     document.body.style.overflow = '';
 }
-document.getElementById('modalClose').addEventListener('click', closeModal);
-document.getElementById('modalOverlay').addEventListener('click', e => { if (e.target === document.getElementById('modalOverlay')) closeModal(); });
+if (document.getElementById('modalClose')) document.getElementById('modalClose').addEventListener('click', closeModal);
+if (document.getElementById('modalOverlay')) document.getElementById('modalOverlay').addEventListener('click', e => { if (e.target === document.getElementById('modalOverlay')) closeModal(); });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
 /* ============================================
@@ -420,36 +421,23 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal()
    ============================================ */
 function populateSelect() {
     const sel = document.getElementById('orderBird');
+    if (!sel) return;
 
-    const birdsGroup = document.createElement('optgroup');
-    birdsGroup.label = '🦜 Birds';
-    birds.forEach(b => {
-        const o = document.createElement('option');
-        o.value = b.name;
-        o.textContent = `${b.name} — ${inr(b.price)}${b.available ? '' : ' (Waitlist)'}`;
-        birdsGroup.appendChild(o);
+    const items = [
+        { group: '🦜 Birds',        options: ['Cockatiels', 'Lovebirds & Parrots', 'Budgies', 'Other Birds'] },
+        { group: '🌿 Bird Food',     options: ['Seeds & Pellets', 'Treats & Supplements'] },
+        { group: '🏠 Accessories',   options: ['Cages & Perches', 'Toys & Feeders'] },
+    ];
+    items.forEach(({ group, options }) => {
+        const g = document.createElement('optgroup');
+        g.label = group;
+        options.forEach(name => {
+            const o = document.createElement('option');
+            o.value = name; o.textContent = name;
+            g.appendChild(o);
+        });
+        sel.appendChild(g);
     });
-    sel.appendChild(birdsGroup);
-
-    const foodGroup = document.createElement('optgroup');
-    foodGroup.label = '🌿 Bird Food';
-    foodProducts.forEach(p => {
-        const o = document.createElement('option');
-        o.value = p.name;
-        o.textContent = `${p.name} — ${p.unit}`;
-        foodGroup.appendChild(o);
-    });
-    sel.appendChild(foodGroup);
-
-    const accGroup = document.createElement('optgroup');
-    accGroup.label = '🏠 Accessories';
-    accessories.forEach(p => {
-        const o = document.createElement('option');
-        o.value = p.name;
-        o.textContent = `${p.name} — ${p.unit}`;
-        accGroup.appendChild(o);
-    });
-    sel.appendChild(accGroup);
 }
 
 function fillOrder(name) {
@@ -457,20 +445,16 @@ function fillOrder(name) {
     document.getElementById('order').scrollIntoView({ behavior: 'smooth' });
 }
 
-document.getElementById('orderForm').addEventListener('submit', e => {
+if (document.getElementById('orderForm')) document.getElementById('orderForm').addEventListener('submit', e => {
     e.preventDefault();
     const name  = document.getElementById('orderName').value.trim();
     const phone = document.getElementById('orderPhone').value.trim();
-    const city  = document.getElementById('orderCity').value.trim();
     const bird  = document.getElementById('orderBird').value;
-    const msg   = document.getElementById('orderMessage').value.trim();
     if (!name || !phone || !bird) { toast('Please fill all required fields ★'); return; }
     const waMsg = `🦜 *New Order — Nila's Aviary*\n\n` +
         `👤 *Name:* ${name}\n` +
         `📱 *Phone:* ${phone}\n` +
-        `📍 *City:* ${city || 'Not specified'}\n` +
-        `🐦 *Bird:* ${bird}\n` +
-        `💬 *Message:* ${msg || '—'}\n\n` +
+        `🐦 *Product:* ${bird}\n\n` +
         `_Sent from nilasaviary.com_`;
     window.open(waLink(waMsg), '_blank');
     toast('Opening WhatsApp with your inquiry… 🦜', 'green');
@@ -482,6 +466,7 @@ document.getElementById('orderForm').addEventListener('submit', e => {
    ============================================ */
 function renderReviews() {
     const grid = document.getElementById('reviewsGrid');
+    if (!grid) return;
     grid.innerHTML = '';
     reviews.forEach(r => {
         const stars = [...Array(5)].map((_,i) => `<span>${i < r.rating ? '★' : '☆'}</span>`).join('');
@@ -500,12 +485,12 @@ function renderReviews() {
 }
 
 /* Review form toggle */
-document.getElementById('addReviewBtn').addEventListener('click', () => {
+if (document.getElementById('addReviewBtn')) document.getElementById('addReviewBtn').addEventListener('click', () => {
     document.getElementById('reviewFormContainer').style.display = 'block';
     document.getElementById('addReviewBtn').style.display = 'none';
     document.getElementById('reviewFormContainer').scrollIntoView({ behavior: 'smooth' });
 });
-document.getElementById('cancelReview').addEventListener('click', () => {
+if (document.getElementById('cancelReview')) document.getElementById('cancelReview').addEventListener('click', () => {
     document.getElementById('reviewFormContainer').style.display = 'none';
     document.getElementById('addReviewBtn').style.display = 'inline-flex';
 });
@@ -525,7 +510,7 @@ starEls.forEach(s => {
     });
 });
 
-document.getElementById('reviewForm').addEventListener('submit', e => {
+if (document.getElementById('reviewForm')) document.getElementById('reviewForm').addEventListener('submit', e => {
     e.preventDefault();
     const name = document.getElementById('reviewName').value.trim();
     const bird = document.getElementById('reviewBird').value.trim();
@@ -729,8 +714,8 @@ function closeVideoModal() {
     document.body.style.overflow = '';
 }
 
-document.getElementById('videoModalClose').addEventListener('click', closeVideoModal);
-document.getElementById('videoModalOverlay').addEventListener('click', e => {
+if (document.getElementById('videoModalClose')) document.getElementById('videoModalClose').addEventListener('click', closeVideoModal);
+if (document.getElementById('videoModalOverlay')) document.getElementById('videoModalOverlay').addEventListener('click', e => {
     if (e.target === document.getElementById('videoModalOverlay')) closeVideoModal();
 });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); closeVideoModal(); } });
@@ -744,18 +729,15 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal
           Emoji shows automatically until you add a photo.
    ============================================ */
 const foodProducts = [
-    { id:'f1',  name:'Cockatiel Seed Mix',      subtitle:'Premium Blend · 500g',      emoji:'🌾', image:'images/food/cockatiel-seed.jpg',      category:['seeds'],        badge:'Popular',    unit:'₹250 / 500g' },
-    { id:'f2',  name:'African Grey Parrot Mix', subtitle:'Nut & Seed Blend · 1kg',    emoji:'🥜', image:'images/food/parrot-mix.jpg',           category:['seeds'],        badge:'Bestseller', unit:'₹550 / kg' },
-    { id:'f3',  name:'Budgerigar Seed Mix',     subtitle:'Vitamin Enriched · 500g',   emoji:'🌿', image:'images/food/budgie-seed.jpg',          category:['seeds'],        badge:null,         unit:'₹180 / 500g' },
-    { id:'f4',  name:'Sprouting Seeds Kit',     subtitle:'3-Seed Blend · 500g',       emoji:'🌱', image:'images/food/sprouting.jpg',            category:['seeds'],        badge:null,         unit:'₹220 / 500g' },
-    { id:'f5',  name:'Parrot Pellets',          subtitle:'Balanced Diet · 500g',      emoji:'🟡', image:'images/food/parrot-pellets.jpg',       category:['pellets'],      badge:'New',        unit:'₹480 / 500g' },
-    { id:'f6',  name:'Cockatiel Pellets',       subtitle:'Small Bite · 500g',         emoji:'🟠', image:'images/food/cockatiel-pellets.jpg',    category:['pellets'],      badge:null,         unit:'₹420 / 500g' },
-    { id:'f7',  name:'Millet Spray Bundle',     subtitle:'Natural Treat · Pack of 5', emoji:'🌾', image:'images/food/millet-spray.jpg',         category:['treats'],       badge:'Popular',    unit:'₹120 / 5pc' },
-    { id:'f8',  name:'Dried Fruit & Veggie Mix',subtitle:'Mixed Treats · 200g',       emoji:'🍎', image:'images/food/fruit-mix.jpg',            category:['treats'],       badge:null,         unit:'₹320 / 200g' },
-    { id:'f9',  name:'Eggfood (Breeding)',      subtitle:'High Protein · 500g',       emoji:'🥚', image:'images/food/eggfood.jpg',              category:['treats'],       badge:null,         unit:'₹350 / 500g' },
-    { id:'f10', name:'Calcium Supplement',      subtitle:'Liquid Drops · 100ml',      emoji:'💊', image:'images/food/calcium.jpg',              category:['supplements'],  badge:null,         unit:'₹280 / bottle' },
-    { id:'f11', name:'Multivitamin Drops',      subtitle:'All-Bird Formula · 100ml',  emoji:'🩺', image:'images/food/vitamins.jpg',             category:['supplements'],  badge:'New',        unit:'₹320 / bottle' },
-    { id:'f12', name:'Cuttlebone Mineral Block',subtitle:'Natural Calcium · 3pc',     emoji:'🦴', image:'images/food/cuttlebone.jpg',           category:['supplements'],  badge:null,         unit:'₹150 / 3pc' },
+    { id:'f1',  name:'Cockatiel Seed Mix',      subtitle:'Premium Blend · 500g',      emoji:'🌾', image:'images/food/Cocktail_Seed.png',        category:['seeds'],        badge:'Popular',    unit:'₹250 / 500g' },
+    { id:'f2',  name:'African Grey Parrot Mix', subtitle:'Nut & Seed Blend · 1kg',    emoji:'🥜', image:'images/food/bird_food.png',             category:['seeds'],        badge:'Bestseller', unit:'₹550 / kg' },
+    { id:'f3',  name:'Budgerigar Seed Mix',     subtitle:'Vitamin Enriched · 500g',   emoji:'🌿', image:'images/food/Budgies_seed.png',          category:['seeds'],        badge:null,         unit:'₹180 / 500g' },
+    { id:'f4',  name:'Sprouting Seeds Kit',     subtitle:'3-Seed Blend · 500g',       emoji:'🌱', image:'images/food/Sprouting_seed.png',        category:['seeds'],        badge:null,         unit:'₹220 / 500g' },
+    { id:'f5',  name:'Parrot Pellets',          subtitle:'Balanced Diet · 500g',      emoji:'🟡', image:'images/food/Bird_food.png',             category:['pellets'],      badge:'New',        unit:'₹480 / 500g' },
+    { id:'f9',  name:'Sunflower Seeds',         subtitle:'High Protein · 500g',       emoji:'🌻', image:'images/food/Sunflower_seed.png',        category:['treats'],       badge:null,         unit:'₹350 / 500g' },
+    { id:'f10', name:'Calcium Supplement',      subtitle:'Liquid Drops · 100ml',      emoji:'💊', image:'',                                      category:['supplements'],  badge:null,         unit:'₹280 / bottle' },
+    { id:'f11', name:'Multivitamin Drops',      subtitle:'All-Bird Formula · 100ml',  emoji:'🩺', image:'',                                      category:['supplements'],  badge:'New',        unit:'₹320 / bottle' },
+    { id:'f12', name:'Cuttlebone Mineral Block',subtitle:'Natural Calcium · 3pc',     emoji:'🦴', image:'images/food/CuttleBone.png',            category:['supplements'],  badge:null,         unit:'₹150 / 3pc' },
 ];
 
 /* ============================================
@@ -788,6 +770,7 @@ const accessories = [
    ============================================ */
 function renderFood(list) {
     const grid = document.getElementById('foodGrid');
+    if (!grid) return;
     grid.innerHTML = '';
     if (!list.length) {
         grid.innerHTML = '<div class="no-results"><i class="fas fa-seedling"></i><h3>No products found</h3><p>Try a different filter</p></div>';
@@ -832,6 +815,7 @@ function renderFood(list) {
    ============================================ */
 function renderAccessories(list) {
     const grid = document.getElementById('accGrid');
+    if (!grid) return;
     grid.innerHTML = '';
     if (!list.length) {
         grid.innerHTML = '<div class="no-results"><i class="fas fa-home"></i><h3>No products found</h3><p>Try a different filter</p></div>';
@@ -953,6 +937,287 @@ document.querySelectorAll('#accFilter .filter-btn').forEach(btn => {
 });
 
 /* ============================================
+   PRODUCT CAROUSEL (Home Page)
+   ============================================ */
+const CAR_BIRD_IDS = [6, 1, 2, 5, 4, 9];
+const CAR_FOOD_IDS = ['f1', 'f7', 'f5', 'f2', 'f8'];
+const CAR_ACC_IDS  = ['a1', 'a2', 'a7', 'a5', 'a12'];
+const CAR_GAP_PX   = 22;
+const CAR_DELAY_MS = 3000;
+
+let _carIdx = 0, _carReal = 0, _carTimer = null, _carBusy = false;
+
+function _carItems() {
+    const out = [];
+    CAR_BIRD_IDS.map(id => birds.find(b => b.id === id)).filter(Boolean)
+        .forEach(d => out.push({ kind:'bird', d }));
+    CAR_FOOD_IDS.map(id => foodProducts.find(f => f.id === id)).filter(Boolean)
+        .forEach(d => out.push({ kind:'food', d }));
+    CAR_ACC_IDS.map(id => accessories.find(a => a.id === id)).filter(Boolean)
+        .forEach(d => out.push({ kind:'acc', d }));
+    return out;
+}
+
+function _carMakeCard(item) {
+    const card = document.createElement('div');
+    card.className = 'bird-card carousel-card';
+    const { kind, d } = item;
+    if (kind === 'bird') {
+        const wa = waLink(`Hi Nila's Aviary! I'm interested in *${d.name}* (${inr(d.price)}).`);
+        card.innerHTML = `
+            <div class="img-wrap">
+                <img class="card-img" src="${d.image}" alt="${d.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+                <div class="img-placeholder" style="display:none">${d.emoji}</div>
+                ${d.badge ? `<div class="card-badge ${BADGE_CLASS[d.badge]||''}">${d.badge}</div>` : ''}
+                <div class="avail-dot${d.available?'':' out'}"></div>
+                <div class="car-cat-label"><i class="fas fa-dove"></i> Bird</div>
+            </div>
+            <div class="card-body">
+                <div class="card-title">${d.name}</div>
+                <div class="card-sp">${d.species}</div>
+                <div class="card-foot">
+                    <div><div class="price-lbl">Price</div><div class="price-amt">${inr(d.price)}</div></div>
+                    <div class="card-actions">
+                        <a href="${wa}" class="ic-btn wa-btn" target="_blank" onclick="event.stopPropagation()"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>`;
+        card.addEventListener('click', e => { if (!e.target.closest('.card-actions')) window.location.href = 'birds.html'; });
+    } else if (kind === 'food') {
+        const imgs = d.images || (d.image ? [d.image] : []);
+        const wa = waLink(`Hi Nila's Aviary! I'd like to order *${d.name}* (${d.unit}).`);
+        card.innerHTML = `
+            <div class="img-wrap">
+                <img class="card-img" src="${imgs[0]||''}" alt="${d.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+                <div class="img-placeholder food-ph" style="display:none">${d.emoji}</div>
+                ${d.badge ? `<div class="card-badge ${BADGE_CLASS[d.badge]||'badge-popular'}">${d.badge}</div>` : ''}
+                <div class="car-cat-label"><i class="fas fa-seedling"></i> Food</div>
+            </div>
+            <div class="card-body">
+                <div class="card-title">${d.name}</div>
+                <div class="card-sp">${d.subtitle}</div>
+                <div class="card-foot">
+                    <div><div class="price-lbl">Price</div><div class="price-amt">${d.unit}</div></div>
+                    <div class="card-actions">
+                        <a href="${wa}" class="ic-btn wa-btn" target="_blank" onclick="event.stopPropagation()"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>`;
+        card.addEventListener('click', e => { if (!e.target.closest('.card-actions')) window.location.href = 'food.html'; });
+    } else {
+        const imgs = d.images || (d.image ? [d.image] : []);
+        const wa = waLink(`Hi Nila's Aviary! I'd like to order *${d.name}* (${d.unit}).`);
+        card.innerHTML = `
+            <div class="img-wrap">
+                <img class="card-img" src="${imgs[0]||''}" alt="${d.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+                <div class="img-placeholder acc-ph" style="display:none">${d.emoji}</div>
+                ${d.badge ? `<div class="card-badge ${BADGE_CLASS[d.badge]||'badge-popular'}">${d.badge}</div>` : ''}
+                ${imgs.length > 1 ? `<div class="multi-photo-badge"><i class="fas fa-images"></i> ${imgs.length}</div>` : ''}
+                <div class="car-cat-label"><i class="fas fa-home"></i> Accessories</div>
+            </div>
+            <div class="card-body">
+                <div class="card-title">${d.name}</div>
+                <div class="card-sp">${d.subtitle}</div>
+                <div class="card-foot">
+                    <div><div class="price-lbl">Price</div><div class="price-amt">${d.unit}</div></div>
+                    <div class="card-actions">
+                        <a href="${wa}" class="ic-btn wa-btn" target="_blank" onclick="event.stopPropagation()"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>`;
+        card.addEventListener('click', e => { if (!e.target.closest('.card-actions')) window.location.href = 'accessories.html'; });
+    }
+    return card;
+}
+
+function _carApply(idx, animate) {
+    const track = document.getElementById('carTrack');
+    if (!track || !track.children.length) return;
+    const cw = track.children[0].offsetWidth;
+    track.style.transition = animate ? 'transform 0.55s cubic-bezier(0.25,0.46,0.45,0.94)' : 'none';
+    track.style.transform = `translateX(-${idx * (cw + CAR_GAP_PX)}px)`;
+    const realIdx = ((idx % _carReal) + _carReal) % _carReal;
+    document.querySelectorAll('.car-dot').forEach((d, i) => d.classList.toggle('active', i === realIdx));
+}
+
+function _carAdvance() {
+    if (_carBusy) return;
+    const next = _carIdx + 1;
+    _carApply(next, true);
+    _carIdx = next;
+    if (next >= _carReal) {
+        _carBusy = true;
+        clearInterval(_carTimer);
+        setTimeout(() => {
+            _carIdx = 0;
+            _carApply(0, false);
+            _carBusy = false;
+            _carAutoPlay();
+        }, 580);
+    }
+}
+
+function _carAutoPlay() {
+    clearInterval(_carTimer);
+    _carTimer = setInterval(_carAdvance, CAR_DELAY_MS);
+}
+
+function initCarousel() {
+    const track = document.getElementById('carTrack');
+    const viewport = document.getElementById('carViewport');
+    if (!track || !viewport) return;
+
+    const items = _carItems();
+    _carReal = items.length;
+    _carIdx  = 0;
+    track.innerHTML = '';
+
+    // Real cards + 1 clone of first card for seamless loop
+    items.forEach(item => track.appendChild(_carMakeCard(item)));
+    track.appendChild(_carMakeCard(items[0]));
+
+    // Dots
+    const dotsEl = document.getElementById('carDots');
+    if (dotsEl) {
+        dotsEl.innerHTML = items.map((_, i) =>
+            `<button class="car-dot${i===0?' active':''}" data-i="${i}"></button>`).join('');
+        dotsEl.querySelectorAll('.car-dot').forEach(dot => {
+            dot.addEventListener('click', () => {
+                if (_carBusy) return;
+                _carIdx = +dot.dataset.i;
+                _carApply(_carIdx, true);
+                _carAutoPlay();
+            });
+        });
+    }
+
+    document.getElementById('carPrev')?.addEventListener('click', () => {
+        if (_carBusy) return;
+        _carIdx = _carIdx <= 0 ? _carReal - 1 : _carIdx - 1;
+        _carApply(_carIdx, true);
+        _carAutoPlay();
+    });
+    document.getElementById('carNext')?.addEventListener('click', () => {
+        if (_carBusy) return;
+        _carAdvance();
+        _carAutoPlay();
+    });
+
+    viewport.addEventListener('mouseenter', () => clearInterval(_carTimer));
+    viewport.addEventListener('mouseleave', _carAutoPlay);
+
+    _carApply(0, false);
+    _carAutoPlay();
+}
+
+/* ============================================
+   HERO GLASS CARD — MINI PRODUCT SLIDER
+   ============================================ */
+let _gcIdx = 0, _gcTimer = null;
+
+function initGcSlider() {
+    const slider = document.getElementById('gcSlider');
+    const dotsEl = document.getElementById('gcDots');
+    if (!slider) return;
+
+    const items = _carItems();
+
+    items.forEach((item, i) => {
+        const { kind, d } = item;
+        const slide = document.createElement('div');
+        slide.className = 'gc-slide' + (i === 0 ? ' active' : '');
+
+        const img   = kind === 'bird' ? d.image : (d.images ? d.images[0] : d.image) || '';
+        const emoji = d.emoji;
+        const name  = d.name;
+        const price = kind === 'bird' ? inr(d.price) : d.unit;
+        const cat   = kind === 'bird' ? 'Bird' : kind === 'food' ? 'Food' : 'Accessories';
+        const waMsg = encodeURIComponent(`Hi Nila's Aviary! I'm interested in *${name}*. Please share details.`);
+
+        slide.innerHTML = `
+            <div class="gc-slide-img-wrap">
+                <img src="${img}" alt="${name}"
+                     onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+                <div class="gc-slide-emoji-fb">${emoji}</div>
+            </div>
+            <div class="gc-slide-info">
+                <div class="gc-slide-cat">${cat}</div>
+                <div class="gc-slide-name">${name}</div>
+            </div>`;
+        slider.appendChild(slide);
+    });
+
+    if (dotsEl) {
+        dotsEl.innerHTML = items.map((_, i) =>
+            `<button class="${i === 0 ? 'active' : ''}" data-i="${i}"></button>`).join('');
+        dotsEl.querySelectorAll('button').forEach(d =>
+            d.addEventListener('click', () => _gcGoTo(+d.dataset.i)));
+    }
+
+    _gcTimer = setInterval(() => _gcGoTo((_gcIdx + 1) % items.length), 2500);
+}
+
+function _gcGoTo(idx) {
+    const slides = document.querySelectorAll('#gcSlider .gc-slide');
+    const dots   = document.querySelectorAll('#gcDots button');
+    slides[_gcIdx]?.classList.remove('active');
+    dots[_gcIdx]?.classList.remove('active');
+    _gcIdx = idx;
+    slides[_gcIdx]?.classList.add('active');
+    dots[_gcIdx]?.classList.add('active');
+}
+
+/* ============================================
+   TICKER STRIP
+   ============================================ */
+function initTicker() {
+    const track = document.getElementById('tickerTrack');
+    if (!track) return;
+    const items = _carItems();
+    const seg = items.map(({ kind, d }) => {
+        const icon  = kind === 'bird' ? '🦜' : kind === 'food' ? '🌿' : '🏠';
+        const price = kind === 'bird' ? inr(d.price) : (d.unit || '');
+        return `<span class="ticker-item">${icon} <strong>${d.name}</strong>${price ? ` <span class="ti-price">${price}</span>` : ''}</span><span class="ticker-sep">✦</span>`;
+    }).join('');
+    track.innerHTML = seg + seg;
+}
+
+/* ============================================
+   PRODUCT SHOWCASE — AUTO-SCROLL ROWS
+   ============================================ */
+function initShowcase() {
+    const r1 = document.getElementById('scRow1');
+    const r2 = document.getElementById('scRow2');
+    if (!r1) return;
+    const all = _carItems();
+
+    function cardHTML({ kind, d }) {
+        const img   = kind === 'bird' ? (d.image || '') : (d.images ? d.images[0] : (d.image || ''));
+        const emoji = d.emoji || (kind === 'food' ? '🌿' : '🏠');
+        const bgCls = kind === 'bird' ? 'sc-birds-bg' : kind === 'food' ? 'sc-food-bg' : 'sc-acc-bg';
+        const cat   = kind === 'bird' ? 'Bird' : kind === 'food' ? 'Food' : 'Accessory';
+        const price = kind === 'bird' ? inr(d.price) : (d.unit || '');
+        const link  = kind === 'bird' ? 'birds.html' : kind === 'food' ? 'food.html' : 'accessories.html';
+        return `<a href="${link}" class="sc-card">
+            ${img ? `<img src="${img}" alt="${d.name}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.removeProperty('display')">` : ''}
+            <div class="sc-emoji-fb ${bgCls}"${img ? ' style="display:none"' : ''}>${emoji}</div>
+            <div class="sc-card-info">
+                <div class="sc-card-cat">${cat}</div>
+                <div class="sc-card-name">${d.name}</div>
+                ${price ? `<div class="sc-card-price">${price}</div>` : ''}
+            </div>
+        </a>`;
+    }
+
+    const cards = all.map(cardHTML).join('');
+    r1.innerHTML = cards + cards;
+    if (r2) {
+        const rev = [...all].reverse().map(cardHTML).join('');
+        r2.innerHTML = rev + rev;
+    }
+}
+
+/* ============================================
    INIT
    ============================================ */
 renderBirds(birds);
@@ -961,3 +1226,7 @@ renderVideos();
 populateSelect();
 renderFood(foodProducts);
 renderAccessories(accessories);
+initCarousel();
+initGcSlider();
+initTicker();
+initShowcase();
