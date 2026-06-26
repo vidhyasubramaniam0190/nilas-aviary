@@ -713,7 +713,7 @@ const foodProducts = [
     { id:'f2',  name:'African Grey Parrot Mix', subtitle:'Nut & Seed Blend · 1kg',    emoji:'🥜', image:'images/food/bird_food.png',             category:['seeds'],        badge:'Bestseller', unit:'₹550 / kg' },
     { id:'f3',  name:'Budgerigar Seed Mix',     subtitle:'Vitamin Enriched · 500g',   emoji:'🌿', image:'images/food/Budgies_seed.png',          category:['seeds'],        badge:null,         unit:'₹180 / 500g' },
     { id:'f4',  name:'Sprouting Seeds Kit',     subtitle:'3-Seed Blend · 500g',       emoji:'🌱', image:'images/food/Sprouting_seed.png',        category:['seeds'],        badge:null,         unit:'₹220 / 500g' },
-    { id:'f5',  name:'Parrot Pellets',          subtitle:'Balanced Diet · 500g',      emoji:'🟡', image:'images/food/Bird_food.png',             category:['pellets'],      badge:'New',        unit:'₹480 / 500g' },
+    { id:'f5',  name:'Parrot Pellets',          subtitle:'Balanced Diet · 500g',      emoji:'🟡', image:'images/food/parrot_pellets.png',        category:['pellets'],      badge:'New',        unit:'₹480 / 500g' },
     { id:'f9',  name:'Sunflower Seeds',         subtitle:'High Protein · 500g',       emoji:'🌻', image:'images/food/Sunflower_seed.png',        category:['treats'],       badge:null,         unit:'₹350 / 500g' },
     { id:'f10', name:'Calcium Supplement',      subtitle:'Liquid Drops · 100ml',      emoji:'💊', image:'',                                      category:['supplements'],  badge:null,         unit:'₹280 / bottle' },
     { id:'f11', name:'Multivitamin Drops',      subtitle:'All-Bird Formula · 100ml',  emoji:'🩺', image:'',                                      category:['supplements'],  badge:'New',        unit:'₹320 / bottle' },
