@@ -1429,9 +1429,34 @@ h1,h2,h3,h4 { font-family: var(--fh); line-height: 1.3; font-weight: 700; }
     padding: 0 4px; line-height: 1; pointer-events: none;
 }
 
-/* cart button on product cards */
-.cart-btn { background: var(--green-dark) !important; color: #fff !important; }
-.cart-btn:hover { background: var(--green) !important; transform: scale(1.1); }
+/* inline qty control on product cards */
+.card-qty-wrap { display: flex; align-items: center; }
+
+.qty-add-btn {
+    width: 34px; height: 34px; border-radius: 50%;
+    background: var(--green-dark); color: #fff; border: none;
+    cursor: pointer; font-size: .9rem; display: flex;
+    align-items: center; justify-content: center; transition: var(--t);
+}
+.qty-add-btn:hover { background: var(--green); transform: scale(1.08); }
+
+.qty-ctrl {
+    display: flex; align-items: center;
+    background: #f4f4f4; border-radius: 50px;
+    border: 1.5px solid #e0e0e0;
+}
+.qty-btn {
+    width: 30px; height: 30px; border: none; background: transparent;
+    cursor: pointer; font-size: .6rem; color: #444;
+    display: flex; align-items: center; justify-content: center;
+    transition: var(--t); border-radius: 50px;
+}
+.qty-btn:hover { background: var(--green-dark); color: #fff; }
+.qty-num {
+    min-width: 22px; text-align: center;
+    font-size: .88rem; font-weight: 700; color: #111;
+    font-family: var(--fb);
+}
 
 /* ============================================
    CART DRAWER

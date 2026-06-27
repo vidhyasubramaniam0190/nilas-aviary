@@ -335,18 +335,15 @@ function renderBirds(list) {
                     </div>
                     <div class="card-actions">
                         <button class="ic-btn inf-btn" data-id="${b.id}" title="View Details"><i class="fas fa-info"></i></button>
-                        <button class="ic-btn cart-btn" data-id="${b.id}" title="Add to Cart"><i class="fas fa-cart-plus"></i></button>
+                        <div class="card-qty-wrap" data-id="${b.id}" data-type="bird" data-name="${b.name}" data-price="${b.price}" data-image="${b.image}" data-emoji="${b.emoji}"></div>
                     </div>
                 </div>
             </div>`;
         card.addEventListener('click', e => { if (!e.target.closest('.card-actions')) openModal(b.id); });
         card.querySelector('.inf-btn').addEventListener('click', e => { e.stopPropagation(); openModal(b.id); });
-        card.querySelector('.cart-btn').addEventListener('click', e => {
-            e.stopPropagation();
-            addToCart({ id: b.id, type: 'bird', name: b.name, price: b.price, image: b.image, emoji: b.emoji });
-        });
         grid.appendChild(card);
     });
+    if (typeof refreshAllQtyWraps === 'function') refreshAllQtyWraps();
 }
 
 /* ============================================
@@ -787,17 +784,14 @@ function renderFood(list) {
                         <div class="price-amt">${p.unit}</div>
                     </div>
                     <div class="card-actions">
-                        <button class="ic-btn cart-btn" title="Add to Cart"><i class="fas fa-cart-plus"></i></button>
+                        <div class="card-qty-wrap" data-id="${p.id}" data-type="food" data-name="${p.name}" data-price="${parsePrice(p.unit)}" data-image="${imgs[0] || ''}" data-emoji="${p.emoji}"></div>
                     </div>
                 </div>
             </div>`;
         card.querySelector('.img-wrap').addEventListener('click', () => openImageLightbox(imgs, p.name));
-        card.querySelector('.cart-btn').addEventListener('click', e => {
-            e.stopPropagation();
-            addToCart({ id: p.id, type: 'food', name: p.name, price: parsePrice(p.unit), image: imgs[0] || '', emoji: p.emoji });
-        });
         grid.appendChild(card);
     });
+    if (typeof refreshAllQtyWraps === 'function') refreshAllQtyWraps();
 }
 
 /* ============================================
@@ -834,17 +828,14 @@ function renderAccessories(list) {
                         <div class="price-amt">${p.unit}</div>
                     </div>
                     <div class="card-actions">
-                        <button class="ic-btn cart-btn" title="Add to Cart"><i class="fas fa-cart-plus"></i></button>
+                        <div class="card-qty-wrap" data-id="${p.id}" data-type="accessory" data-name="${p.name}" data-price="${parsePrice(p.unit)}" data-image="${imgs[0] || ''}" data-emoji="${p.emoji}"></div>
                     </div>
                 </div>
             </div>`;
         card.querySelector('.img-wrap').addEventListener('click', () => openImageLightbox(imgs, p.name));
-        card.querySelector('.cart-btn').addEventListener('click', e => {
-            e.stopPropagation();
-            addToCart({ id: p.id, type: 'accessory', name: p.name, price: parsePrice(p.unit), image: imgs[0] || '', emoji: p.emoji });
-        });
         grid.appendChild(card);
     });
+    if (typeof refreshAllQtyWraps === 'function') refreshAllQtyWraps();
 }
 
 /* ============================================

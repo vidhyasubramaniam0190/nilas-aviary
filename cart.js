@@ -6,10 +6,18 @@ const CART_KEY = 'nilasCart';
 let cart = [];
 try { cart = JSON.parse(localStorage.getItem(CART_KEY) || '[]'); } catch(e) { cart = []; }
 
-function saveCart() { localStorage.setItem(CART_KEY, JSON.stringify(cart)); updateCartBadge(); }
+function saveCart() {
+    localStorage.setItem(CART_KEY, JSON.stringify(cart));
+    updateCartBadge();
+    refreshAllQtyWraps();
+}
 function cartCount() { return cart.reduce((s, i) => s + i.qty, 0); }
 function cartTotal() { return cart.reduce((s, i) => s + i.price * i.qty, 0); }
-function inrFmt(n) { return '₹' + Number(n).toLocaleString('en-IN'); }
+function inrFmt(n)   { return '₹' + Number(n).toLocaleString('en-IN'); }
+function getCartQty(id, type) {
+    const item = cart.find(c => c.id == id && c.type === type);
+    return item ? item.qty : 0;
+}
 
 /* ---------- MUTATIONS ---------- */
 function addToCart(item) {
@@ -17,22 +25,61 @@ function addToCart(item) {
     if (ex) { ex.qty++; } else { cart.push({ ...item, qty: 1 }); }
     saveCart();
     renderCartItems();
-    cartToast('✓ Added to cart — ' + item.name);
 }
 
 function removeFromCart(id, type) {
     cart = cart.filter(c => !(c.id == id && c.type === type));
-    saveCart(); renderCartItems();
+    saveCart();
+    renderCartItems();
 }
 
 function updateQty(id, type, delta) {
     const item = cart.find(c => c.id == id && c.type === type);
     if (!item) return;
     item.qty = Math.max(1, item.qty + delta);
-    saveCart(); renderCartItems();
+    saveCart();
+    renderCartItems();
 }
 
 function clearCart() { cart = []; saveCart(); renderCartItems(); }
+
+/* ---------- INLINE QTY CONTROLS ON CARDS ---------- */
+function refreshQtyWrap(el) {
+    if (!el) return;
+    const { id, type } = el.dataset;
+    const qty = getCartQty(id, type);
+
+    if (!qty) {
+        el.innerHTML = `<button class="qty-add-btn"><i class="fas fa-cart-plus"></i></button>`;
+        el.querySelector('.qty-add-btn').addEventListener('click', e => {
+            e.stopPropagation();
+            const price = parseInt(el.dataset.price) || 0;
+            addToCart({ id, type, name: el.dataset.name, price, image: el.dataset.image || '', emoji: el.dataset.emoji || '🐦' });
+        });
+    } else {
+        el.innerHTML = `
+            <div class="qty-ctrl">
+                <button class="qty-btn qty-minus"><i class="fas fa-minus"></i></button>
+                <span class="qty-num">${qty}</span>
+                <button class="qty-btn qty-plus"><i class="fas fa-plus"></i></button>
+            </div>`;
+        el.querySelector('.qty-minus').addEventListener('click', e => {
+            e.stopPropagation();
+            if (qty <= 1) removeFromCart(id, type);
+            else { cart.find(c => c.id == id && c.type === type).qty--; saveCart(); renderCartItems(); }
+        });
+        el.querySelector('.qty-plus').addEventListener('click', e => {
+            e.stopPropagation();
+            cart.find(c => c.id == id && c.type === type).qty++;
+            saveCart();
+            renderCartItems();
+        });
+    }
+}
+
+function refreshAllQtyWraps() {
+    document.querySelectorAll('.card-qty-wrap').forEach(refreshQtyWrap);
+}
 
 /* ---------- BADGE ---------- */
 function updateCartBadge() {
@@ -43,7 +90,7 @@ function updateCartBadge() {
     b.style.display = n > 0 ? 'flex' : 'none';
 }
 
-/* ---------- DRAWER OPEN/CLOSE ---------- */
+/* ---------- DRAWER OPEN / CLOSE ---------- */
 function openCartDrawer() {
     document.getElementById('cartDrawer')?.classList.add('open');
     document.getElementById('cartOverlay')?.classList.add('open');
@@ -55,9 +102,9 @@ function closeCartDrawer() {
     document.body.style.overflow = '';
 }
 
-/* ---------- RENDER ITEMS ---------- */
+/* ---------- RENDER DRAWER ITEMS ---------- */
 function renderCartItems() {
-    const list = document.getElementById('cartItemsList');
+    const list   = document.getElementById('cartItemsList');
     const footer = document.getElementById('cartFooter');
     if (!list) return;
 
@@ -96,24 +143,8 @@ function renderCartItems() {
     if (t) t.textContent = inrFmt(cartTotal());
 }
 
-/* ---------- TOAST ---------- */
-function cartToast(msg) {
-    let t = document.getElementById('cartToast');
-    if (!t) {
-        t = document.createElement('div');
-        t.id = 'cartToast';
-        t.className = 'cart-toast';
-        document.body.appendChild(t);
-    }
-    t.textContent = msg;
-    t.classList.add('show');
-    clearTimeout(t._timer);
-    t._timer = setTimeout(() => t.classList.remove('show'), 2600);
-}
-
-/* ---------- INJECT UI ---------- */
+/* ---------- INJECT NAVBAR + DRAWER ---------- */
 function initCart() {
-    /* Cart icon button in navbar */
     const navToggle = document.getElementById('navToggle');
     if (navToggle) {
         const btn = document.createElement('button');
@@ -125,7 +156,6 @@ function initCart() {
         navToggle.parentNode.insertBefore(btn, navToggle);
     }
 
-    /* Drawer */
     const drawer = document.createElement('div');
     drawer.id = 'cartDrawer';
     drawer.className = 'cart-drawer';
@@ -148,7 +178,6 @@ function initCart() {
     document.body.appendChild(drawer);
     document.getElementById('cartClose').addEventListener('click', closeCartDrawer);
 
-    /* Overlay */
     const overlay = document.createElement('div');
     overlay.id = 'cartOverlay';
     overlay.className = 'cart-overlay';
@@ -157,6 +186,8 @@ function initCart() {
 
     renderCartItems();
     updateCartBadge();
+    /* Sync any cards already rendered by script.js */
+    setTimeout(refreshAllQtyWraps, 0);
 }
 
 document.addEventListener('DOMContentLoaded', initCart);
