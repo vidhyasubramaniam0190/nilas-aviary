@@ -335,6 +335,7 @@ function renderBirds(list) {
                     </div>
                     <div class="card-actions">
                         <button class="ic-btn inf-btn" data-id="${b.id}" title="View Details"><i class="fas fa-info"></i></button>
+                        <button class="ic-btn cart-btn" data-id="${b.id}" title="Add to Cart"><i class="fas fa-cart-plus"></i></button>
                         <a href="${waLink(waMsg)}" class="ic-btn wa-btn" target="_blank" title="Order on WhatsApp"
                            onclick="event.stopPropagation()"><i class="fab fa-whatsapp"></i></a>
                     </div>
@@ -342,6 +343,10 @@ function renderBirds(list) {
             </div>`;
         card.addEventListener('click', e => { if (!e.target.closest('.card-actions')) openModal(b.id); });
         card.querySelector('.inf-btn').addEventListener('click', e => { e.stopPropagation(); openModal(b.id); });
+        card.querySelector('.cart-btn').addEventListener('click', e => {
+            e.stopPropagation();
+            addToCart({ id: b.id, type: 'bird', name: b.name, price: b.price, image: b.image, emoji: b.emoji });
+        });
         grid.appendChild(card);
     });
 }
@@ -745,6 +750,11 @@ const accessories = [
     { id:'a14', name:'Cockatiel Nesting Box',   subtitle:'Wooden · With Entry Perch',  emoji:'🪺', image:'images/accessories/nest-box.jpg',       category:['other'],   badge:null,       unit:'₹380' },
 ];
 
+function parsePrice(unit) {
+    const m = String(unit).match(/(\d[\d,]*)/);
+    return m ? parseInt(m[1].replace(',', '')) : 0;
+}
+
 /* ============================================
    FOOD — RENDER
    ============================================ */
@@ -779,6 +789,7 @@ function renderFood(list) {
                         <div class="price-amt">${p.unit}</div>
                     </div>
                     <div class="card-actions">
+                        <button class="ic-btn cart-btn" title="Add to Cart"><i class="fas fa-cart-plus"></i></button>
                         <a href="${waLink(waMsg)}" class="ic-btn wa-btn" target="_blank" title="Order on WhatsApp">
                             <i class="fab fa-whatsapp"></i>
                         </a>
@@ -786,6 +797,10 @@ function renderFood(list) {
                 </div>
             </div>`;
         card.querySelector('.img-wrap').addEventListener('click', () => openImageLightbox(imgs, p.name));
+        card.querySelector('.cart-btn').addEventListener('click', e => {
+            e.stopPropagation();
+            addToCart({ id: p.id, type: 'food', name: p.name, price: parsePrice(p.unit), image: imgs[0] || '', emoji: p.emoji });
+        });
         grid.appendChild(card);
     });
 }
@@ -824,6 +839,7 @@ function renderAccessories(list) {
                         <div class="price-amt">${p.unit}</div>
                     </div>
                     <div class="card-actions">
+                        <button class="ic-btn cart-btn" title="Add to Cart"><i class="fas fa-cart-plus"></i></button>
                         <a href="${waLink(waMsg)}" class="ic-btn wa-btn" target="_blank" title="Order on WhatsApp">
                             <i class="fab fa-whatsapp"></i>
                         </a>
@@ -831,6 +847,10 @@ function renderAccessories(list) {
                 </div>
             </div>`;
         card.querySelector('.img-wrap').addEventListener('click', () => openImageLightbox(imgs, p.name));
+        card.querySelector('.cart-btn').addEventListener('click', e => {
+            e.stopPropagation();
+            addToCart({ id: p.id, type: 'accessory', name: p.name, price: parsePrice(p.unit), image: imgs[0] || '', emoji: p.emoji });
+        });
         grid.appendChild(card);
     });
 }

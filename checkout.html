@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Nila's Aviary — Secure Checkout">
+    <title>Checkout — Nila's Aviary</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Lato:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <!-- Razorpay SDK — only loaded on checkout page -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body>
+
+    <!-- ===== NAVBAR ===== -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <div class="brand-logo">
+                    <img class="logo-bird" src="images/logo.png" alt="Nila's Aviary Logo">
+                </div>
+                <div class="brand-text">
+                    <span class="brand-name">Nila's <span class="brand-aviary">Aviary</span></span>
+                    <span class="brand-tagline">Birds · Food · Accessories</span>
+                </div>
+            </div>
+            <button class="nav-toggle" id="navToggle" aria-label="Menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="birds.html" class="nav-link">Our Birds</a></li>
+                <li><a href="food.html" class="nav-link">Bird Food</a></li>
+                <li><a href="accessories.html" class="nav-link">Accessories</a></li>
+                <li><a href="index.html#videos" class="nav-link">Videos</a></li>
+                <li><a href="index.html#order" class="nav-link nav-cta">Order Now</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ===== PAGE HERO ===== -->
+    <section class="page-hero" style="padding: 100px 20px 24px;">
+        <div class="container">
+            <span class="tag">Secure Checkout</span>
+            <h1 style="font-size:1.8rem;">Complete Your Order</h1>
+            <p>Fill in your details and choose how you'd like to pay</p>
+        </div>
+    </section>
+
+    <!-- ===== CHECKOUT SECTION ===== -->
+    <section class="checkout-section">
+        <div class="container">
+
+            <!-- Empty cart fallback -->
+            <div id="emptyCartMsg" class="co-empty-page" style="display:none">
+                <i class="fas fa-shopping-cart"></i>
+                <h3>Your cart is empty</h3>
+                <p>Add some products before checking out.</p>
+                <a href="birds.html" class="btn btn-green" style="margin-top:16px;display:inline-flex;gap:8px;padding:12px 28px;border-radius:50px;background:var(--green-dark);color:#fff;text-decoration:none;font-weight:700">
+                    <i class="fas fa-arrow-left"></i> Continue Shopping
+                </a>
+            </div>
+
+            <div class="checkout-grid" id="checkoutContent">
+
+                <!-- LEFT: Order Summary -->
+                <div class="checkout-box">
+                    <h3><i class="fas fa-receipt"></i> Order Summary</h3>
+                    <div id="checkoutItems"></div>
+                    <div class="co-total">
+                        <span>Total</span>
+                        <span id="checkoutTotal">₹0</span>
+                    </div>
+                    <p class="co-delivery-note"><i class="fas fa-truck"></i> Delivery charges will be confirmed on WhatsApp based on your location.</p>
+                </div>
+
+                <!-- RIGHT: Details + Payment -->
+                <div class="checkout-box">
+                    <h3><i class="fas fa-user"></i> Your Details</h3>
+                    <form id="checkoutForm" class="checkout-form" onsubmit="return false">
+                        <input type="text"  id="coName"    placeholder="Full Name *"          required>
+                        <input type="tel"   id="coPhone"   placeholder="Phone Number *"       required>
+                        <input type="email" id="coEmail"   placeholder="Email (optional)">
+                        <textarea           id="coAddress" placeholder="Delivery Address *"   required rows="3"></textarea>
+                        <input type="text"  id="coPincode" placeholder="Pincode *"            required>
+                    </form>
+
+                    <div class="checkout-or"><span>Choose how to pay</span></div>
+
+                    <div class="checkout-actions">
+                        <button class="co-btn co-btn-wa" id="btnWhatsApp">
+                            <i class="fab fa-whatsapp"></i>
+                            Confirm Order via WhatsApp
+                        </button>
+                        <button class="co-btn co-btn-pay" id="btnRazorpay">
+                            <i class="fas fa-lock"></i>
+                            Pay Online (UPI / Card / Net Banking)
+                        </button>
+                    </div>
+
+                    <p class="co-note">
+                        <i class="fas fa-shield-alt"></i>
+                        <strong>WhatsApp</strong> — we confirm your order &amp; share payment details.<br>
+                        <i class="fas fa-credit-card"></i>
+                        <strong>Pay Online</strong> — instant confirmation via Razorpay.
+                    </p>
+                </div>
+            </div><!-- /checkout-grid -->
+
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <div class="brand-logo">
+                            <img class="logo-bird" src="images/logo.png" alt="Nila's Aviary Logo">
+                        </div>
+                        <div><strong>Nila's Aviary</strong><small>Premium Pet Birds</small></div>
+                    </div>
+                    <div class="socials">
+                        <a href="https://wa.me/917200911938" target="_blank" class="social wa"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#" class="social ig"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social fb"><i class="fab fa-facebook"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>Shop</h4>
+                    <ul>
+                        <li><a href="birds.html">Premium Birds</a></li>
+                        <li><a href="food.html">Seeds &amp; Pellets</a></li>
+                        <li><a href="accessories.html">Cages &amp; Toys</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contact Us</h4>
+                    <p><i class="fab fa-whatsapp"></i> +91 72009 11938</p>
+                    <p><i class="fas fa-envelope"></i> nilasaviary@gmail.com</p>
+                    <p><i class="fas fa-clock"></i> Mon–Sat: 9 AM – 7 PM</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Chennai, India</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2024 Nila's Aviary. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <a href="https://wa.me/917200911938?text=Hi%20Nila's%20Aviary!" class="wa-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+        <span class="wa-tooltip">Chat with us!</span>
+    </a>
+    <button class="btt" id="btt"><i class="fas fa-chevron-up"></i></button>
+    <div class="toast" id="toast"></div>
+
+    <script src="cart.js"></script>
+    <script>
+    /* ============================================
+       CHECKOUT LOGIC
+       ============================================ */
+
+    /*
+     * RAZORPAY SETUP:
+     * 1. Sign up at razorpay.com
+     * 2. Go to Settings → API Keys → Generate Key
+     * 3. Replace the value below with your actual Key ID
+     *    (starts with rzp_live_ for production, rzp_test_ for testing)
+     */
+    const RAZORPAY_KEY = 'rzp_test_REPLACE_WITH_YOUR_KEY';
+    const WA_NUM = '917200911938';
+
+    function inrCo(n) { return '₹' + Number(n).toLocaleString('en-IN'); }
+
+    function loadSummary() {
+        let cart = [];
+        try { cart = JSON.parse(localStorage.getItem('nilasCart') || '[]'); } catch(e) {}
+
+        const content   = document.getElementById('checkoutContent');
+        const emptyMsg  = document.getElementById('emptyCartMsg');
+        const itemsEl   = document.getElementById('checkoutItems');
+        const totalEl   = document.getElementById('checkoutTotal');
+
+        if (!cart.length) {
+            content.style.display = 'none';
+            emptyMsg.style.display = 'block';
+            return;
+        }
+
+        const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+        itemsEl.innerHTML = cart.map(item => `
+            <div class="co-item">
+                <div class="co-item-img">
+                    ${item.image
+                        ? `<img src="${item.image}" alt="${item.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div style="display:none;font-size:1.6rem;align-items:center;justify-content:center;">${item.emoji}</div>`
+                        : `<div style="font-size:1.6rem;display:flex;align-items:center;justify-content:center;">${item.emoji}</div>`}
+                </div>
+                <div class="co-item-info">
+                    <div class="co-item-name">${item.name}</div>
+                    <div class="co-item-sub">Qty: ${item.qty} × ${inrCo(item.price)}</div>
+                </div>
+                <div class="co-item-price">${inrCo(item.price * item.qty)}</div>
+            </div>`).join('');
+        totalEl.textContent = inrCo(total);
+    }
+
+    function getFormData() {
+        const name    = document.getElementById('coName').value.trim();
+        const phone   = document.getElementById('coPhone').value.trim();
+        const email   = document.getElementById('coEmail').value.trim();
+        const address = document.getElementById('coAddress').value.trim();
+        const pincode = document.getElementById('coPincode').value.trim();
+        return { name, phone, email, address, pincode };
+    }
+
+    function validateForm() {
+        const { name, phone, address, pincode } = getFormData();
+        if (!name)    { alert('Please enter your name.');           document.getElementById('coName').focus();    return false; }
+        if (!phone)   { alert('Please enter your phone number.');   document.getElementById('coPhone').focus();   return false; }
+        if (!address) { alert('Please enter your delivery address.');document.getElementById('coAddress').focus();return false; }
+        if (!pincode) { alert('Please enter your pincode.');        document.getElementById('coPincode').focus(); return false; }
+        return true;
+    }
+
+    function buildOrderMessage(paymentId) {
+        let cart = [];
+        try { cart = JSON.parse(localStorage.getItem('nilasCart') || '[]'); } catch(e) {}
+        const { name, phone, address, pincode } = getFormData();
+        const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+
+        const lines = cart.map(i => `• ${i.name} × ${i.qty} — ${inrCo(i.price * i.qty)}`).join('\n');
+        let msg = `🛍️ *Order from Nila's Aviary*\n\n`
+                + `📋 *Items:*\n${lines}\n\n`
+                + `💰 *Total: ${inrCo(total)}*\n\n`
+                + `👤 *Customer Details:*\n`
+                + `Name: ${name}\nPhone: ${phone}\nAddress: ${address}\nPincode: ${pincode}`;
+        if (paymentId) msg += `\n\n✅ *Payment ID:* ${paymentId}`;
+        msg += '\n\nPlease confirm my order. Thank you!';
+        return msg;
+    }
+
+    /* WhatsApp checkout */
+    document.getElementById('btnWhatsApp').addEventListener('click', () => {
+        if (!validateForm()) return;
+        const msg = buildOrderMessage(null);
+        window.open(`https://wa.me/${WA_NUM}?text=${encodeURIComponent(msg)}`, '_blank');
+        clearCart();
+        setTimeout(() => { window.location.href = 'index.html'; }, 500);
+    });
+
+    /* Razorpay checkout */
+    document.getElementById('btnRazorpay').addEventListener('click', () => {
+        if (!validateForm()) return;
+        let cart = [];
+        try { cart = JSON.parse(localStorage.getItem('nilasCart') || '[]'); } catch(e) {}
+        const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+        const { name, phone, email } = getFormData();
+
+        const options = {
+            key: RAZORPAY_KEY,
+            amount: total * 100, // paise
+            currency: 'INR',
+            name: "Nila's Aviary",
+            description: 'Birds, Food & Accessories Order',
+            image: 'images/logo.png',
+            handler: function(response) {
+                const msg = buildOrderMessage(response.razorpay_payment_id);
+                window.open(`https://wa.me/${WA_NUM}?text=${encodeURIComponent(msg)}`, '_blank');
+                clearCart();
+                alert('Payment successful! 🎉 Your order has been sent to WhatsApp for confirmation.');
+                window.location.href = 'index.html';
+            },
+            prefill: { name, contact: phone, email: email || '' },
+            theme: { color: '#2d6a2d' },
+            modal: { ondismiss: function() { /* dismissed */ } }
+        };
+
+        if (RAZORPAY_KEY === 'rzp_test_REPLACE_WITH_YOUR_KEY') {
+            alert('⚠️ Razorpay is not configured yet.\n\nTo enable online payment:\n1. Sign up at razorpay.com\n2. Get your Key ID\n3. Replace RAZORPAY_KEY in checkout.html');
+            return;
+        }
+
+        const rzp = new Razorpay(options);
+        rzp.open();
+    });
+
+    /* Navbar scroll + back-to-top */
+    const navbar = document.getElementById('navbar');
+    const btt    = document.getElementById('btt');
+    window.addEventListener('scroll', () => {
+        if (navbar) navbar.classList.toggle('scrolled', window.scrollY > 60);
+        if (btt)    btt.classList.toggle('show', window.scrollY > 400);
+    });
+    if (btt) btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    const navToggle = document.getElementById('navToggle');
+    const navMenu   = document.getElementById('navMenu');
+    if (navToggle && navMenu) {
+        navToggle.addEventListener('click', () => navMenu.classList.toggle('open'));
+    }
+
+    loadSummary();
+    </script>
+</body>
+</html>
