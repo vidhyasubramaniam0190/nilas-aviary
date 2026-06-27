@@ -83,11 +83,9 @@ function refreshAllQtyWraps() {
 
 /* ---------- BADGE ---------- */
 function updateCartBadge() {
-    const b = document.getElementById('cartBadge');
-    if (!b) return;
     const n = cartCount();
-    b.textContent = n;
-    b.style.display = n > 0 ? 'flex' : 'none';
+    const bc = document.getElementById('cartBadgeCta');
+    if (bc) { bc.textContent = n; bc.style.display = n > 0 ? 'inline-flex' : 'none'; }
 }
 
 /* ---------- DRAWER OPEN / CLOSE ---------- */
@@ -145,15 +143,16 @@ function renderCartItems() {
 
 /* ---------- INJECT NAVBAR + DRAWER ---------- */
 function initCart() {
-    const navToggle = document.getElementById('navToggle');
-    if (navToggle) {
-        const btn = document.createElement('button');
-        btn.className = 'cart-nav-btn';
-        btn.id = 'cartNavBtn';
-        btn.title = 'View Cart';
-        btn.innerHTML = `<i class="fas fa-shopping-cart"></i><span class="cart-badge" id="cartBadge" style="display:none">0</span>`;
-        btn.addEventListener('click', openCartDrawer);
-        navToggle.parentNode.insertBefore(btn, navToggle);
+    /* Inject badge into Checkout nav-cta */
+    const navCta = document.querySelector('.nav-cta');
+    if (navCta && !document.getElementById('cartBadgeCta')) {
+        navCta.style.position = 'relative';
+        const bc = document.createElement('span');
+        bc.id = 'cartBadgeCta';
+        bc.className = 'cart-badge-cta';
+        bc.style.display = 'none';
+        bc.textContent = '0';
+        navCta.appendChild(bc);
     }
 
     const drawer = document.createElement('div');

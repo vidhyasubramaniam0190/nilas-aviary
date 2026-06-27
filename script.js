@@ -39,7 +39,7 @@ const birds = [
         badge: 'Popular',
         available: true,
         emoji: '🦜',
-        image: 'images/african-grey.jpg',
+        image: 'images/our_bird.jpg',
         description: 'The African Grey Parrot is considered the most intelligent bird in the world. Renowned for exceptional talking ability and deep emotional bonds with their owners. Our birds are hand-raised from chicks for maximum tameness.'
     },
     {
@@ -58,7 +58,7 @@ const birds = [
         badge: 'Popular',
         available: true,
         emoji: '🐦',
-        image: 'images/cockatiel-grey.jpg',
+        image: '',
         description: 'Cockatiels are one of the most loved pet birds. Friendly, playful, and easy to care for. Our hand-raised babies are tame and social from a young age — perfect for families and first-time bird owners.'
     },
     {
@@ -77,7 +77,7 @@ const birds = [
         badge: 'New',
         available: true,
         emoji: '🌟',
-        image: 'images/cockatiel-lutino.jpg',
+        image: '',
         description: 'The Lutino Cockatiel is a stunning yellow-white mutation of the classic cockatiel. Equally loving and fun, with striking bright coloration. A true showstopper that brings sunshine to any home.'
     },
     {
@@ -96,7 +96,7 @@ const birds = [
         badge: 'Best Value',
         available: true,
         emoji: '💚',
-        image: 'images/budgerigar.jpg',
+        image: '',
         description: 'Budgies are the perfect starter bird — small, cheerful, and easy to maintain. Available in a beautiful variety of colours. With patience they can learn to talk, whistle tunes, and even do tricks.'
     },
     {
@@ -115,7 +115,7 @@ const birds = [
         badge: 'Pair',
         available: true,
         emoji: '❤️',
-        image: 'images/lovebird.jpg',
+        image: '',
         description: "Fischer's Lovebirds are affectionate, vibrant birds that thrive in pairs. Their playful personalities and jewel-like colours make them a joy to keep. Best homed as bonded pairs for maximum happiness."
     },
     {
@@ -153,7 +153,7 @@ const birds = [
         badge: null,
         available: true,
         emoji: '🌿',
-        image: 'images/alexandrine.jpg',
+        image: 'images/lorry.jpg',
         description: 'The Alexandrine Parakeet is one of the largest and most majestic parakeets available. Intelligent and good talkers, they develop deep bonds with their owners over time. A regal addition to any home.'
     },
     {
@@ -172,7 +172,7 @@ const birds = [
         badge: null,
         available: true,
         emoji: '🦚',
-        image: 'images/ringneck-green.jpg',
+        image: '',
         description: 'The Indian Ringneck is a popular pet bird loved for its intelligence and talking ability. The classic green coloration is stunning and they can learn many words, phrases, and even songs.'
     },
     {
@@ -191,7 +191,7 @@ const birds = [
         badge: 'New',
         available: true,
         emoji: '💙',
-        image: 'images/ringneck-blue.jpg',
+        image: 'images/sun-conure_background.jpg',
         description: 'The Blue Ringneck is a gorgeous colour mutation of the classic IRN. Just as intelligent and vocal as the green variety but with a breathtaking blue plumage that turns every head.'
     },
     {
@@ -210,7 +210,7 @@ const birds = [
         badge: null,
         available: true,
         emoji: '🎵',
-        image: 'images/canary.jpg',
+        image: '',
         description: 'Canaries are prized for their rich, melodious song. Male canaries fill the room with beautiful music every morning. Perfect for those who love bird song but prefer a low-maintenance companion.'
     },
     {
@@ -229,7 +229,7 @@ const birds = [
         badge: 'Pair',
         available: true,
         emoji: '🐤',
-        image: 'images/zebra-finch.jpg',
+        image: '',
         description: 'Zebra Finches are delightful, low-maintenance birds perfect for beginners and small spaces. Available as breeding pairs, they are social, entertaining to watch, and very hardy birds.'
     },
     {
@@ -248,7 +248,7 @@ const birds = [
         badge: 'Rare',
         available: false,
         emoji: '🦋',
-        image: 'images/macaw.jpg',
+        image: 'images/Macaw.jpg',
         description: 'The Blue & Gold Macaw is the king of companion parrots. Magnificent, intelligent, and long-lived — they are a lifetime commitment and an extraordinary companion. Currently accepting waitlist enquiries.'
     }
 ];
@@ -735,8 +735,8 @@ const accessories = [
     { id:'a4',  name:'Wooden T-Perch',          subtitle:'Natural Wood · Large',       emoji:'🌳', image:'images/accessories/t-perch.jpg',        category:['perch'],   badge:null,       unit:'₹280' },
     { id:'a5',  name:'Rope Perch Set',          subtitle:'Braided Cotton · 2pc',       emoji:'🪢', image:'images/accessories/rope-perch.jpg',    category:['perch'],   badge:'Popular',  unit:'₹350 / set' },
     { id:'a6',  name:'Java Wood Perch',         subtitle:'Natural Branch · Medium',    emoji:'🌿', image:'images/accessories/java-perch.jpg',    category:['perch'],   badge:'New',      unit:'₹420' },
-    { id:'a7',  name:'Foraging Toy Set',        subtitle:'3-Piece Activity Bundle',    emoji:'🎯', image:'images/accessories/foraging-toys.jpg', category:['toy'],     badge:'Popular',  unit:'₹450 / set' },
-    { id:'a8',  name:'Bird Swing',              subtitle:'Wooden & Rope · Small',      emoji:'🎠', image:'images/accessories/swing.jpg',          category:['toy'],     badge:null,       unit:'₹220' },
+    { id:'a7',  name:'Foraging Toy Set',        subtitle:'3-Piece Activity Bundle',    emoji:'🎯', image:'images/accessories/toy.webp', category:['toy'],     badge:'Popular',  unit:'₹450 / set' },
+    { id:'a8',  name:'Bird Swing',              subtitle:'Wooden & Rope · Small',      emoji:'🎠', image:'images/accessories/swing.webp',          category:['toy'],     badge:null,       unit:'₹220' },
     { id:'a9',  name:'Bell & Ring Toy',         subtitle:'Stainless Steel · Safe',     emoji:'🔔', image:'images/accessories/bell-toy.jpg',       category:['toy'],     badge:null,       unit:'₹180' },
     { id:'a10', name:'Steel Feeder Bowl Set',   subtitle:'Stainless Steel · 2pc',      emoji:'🥣', image:'images/accessories/feeder-bowls.jpg',  category:['feeder'],  badge:null,       unit:'₹250 / set' },
     { id:'a11', name:'Auto Water Dispenser',    subtitle:'Bottle Style · 300ml',       emoji:'💧', image:'images/accessories/water-dispenser.jpg',category:['feeder'],  badge:'New',      unit:'₹320' },
