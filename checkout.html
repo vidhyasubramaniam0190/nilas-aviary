@@ -41,74 +41,80 @@
         </div>
     </nav>
 
-    <!-- ===== PAGE HERO ===== -->
-    <section class="page-hero" style="padding: 100px 20px 24px;">
-        <div class="container">
-            <span class="tag">Secure Checkout</span>
-            <h1 style="font-size:1.8rem;">Complete Your Order</h1>
-            <p>Fill in your details and choose how you'd like to pay</p>
-        </div>
-    </section>
-
-    <!-- ===== CHECKOUT SECTION ===== -->
-    <section class="checkout-section">
+    <!-- ===== CHECKOUT ===== -->
+    <section class="order-section co-page">
         <div class="container">
 
-            <!-- Empty cart fallback -->
+            <!-- Empty cart -->
             <div id="emptyCartMsg" class="co-empty-page" style="display:none">
                 <i class="fas fa-shopping-cart"></i>
                 <h3>Your cart is empty</h3>
                 <p>Add some products before checking out.</p>
-                <a href="birds.html" class="btn btn-green" style="margin-top:16px;display:inline-flex;gap:8px;padding:12px 28px;border-radius:50px;background:var(--green-dark);color:#fff;text-decoration:none;font-weight:700">
+                <a href="birds.html" style="margin-top:16px;display:inline-flex;gap:8px;padding:12px 28px;border-radius:50px;background:var(--green-dark);color:#fff;text-decoration:none;font-weight:700">
                     <i class="fas fa-arrow-left"></i> Continue Shopping
                 </a>
             </div>
 
-            <div class="checkout-grid" id="checkoutContent">
+            <div id="checkoutContent">
+                <div class="order-card-wrap co-card-wide">
+                    <div class="order-card-glow"></div>
+                    <div class="order-card-inner">
 
-                <!-- LEFT: Order Summary -->
-                <div class="checkout-box">
-                    <h3><i class="fas fa-receipt"></i> Order Summary</h3>
-                    <div id="checkoutItems"></div>
-                    <div class="co-total">
-                        <span>Total</span>
-                        <span id="checkoutTotal">₹0</span>
+                        <!-- Header -->
+                        <div class="order-card-top">
+                            <div class="order-icon"><i class="fas fa-shopping-bag"></i></div>
+                            <h2>Complete Your Order</h2>
+                            <p>Review your cart and choose how to pay</p>
+                        </div>
+
+                        <!-- Two-column body -->
+                        <div class="co-body-grid">
+
+                            <!-- LEFT: Summary -->
+                            <div class="co-summary">
+                                <div class="co-section-label">Order Summary</div>
+                                <div id="checkoutItems"></div>
+                                <div class="co-dark-total">
+                                    <span>Total</span>
+                                    <span id="checkoutTotal">₹0</span>
+                                </div>
+                                <p class="co-delivery-note"><i class="fas fa-truck"></i> Delivery charges confirmed on WhatsApp.</p>
+                            </div>
+
+                            <!-- RIGHT: Form + Payment -->
+                            <div class="co-form-col">
+                                <div class="co-section-label">Your Details</div>
+                                <form id="checkoutForm" class="order-grid-form co-details-form" onsubmit="return false">
+                                    <input type="text"  id="coName"    placeholder="Full Name *"       required>
+                                    <input type="tel"   id="coPhone"   placeholder="Phone Number *"    required>
+                                    <input type="email" id="coEmail"   placeholder="Email (optional)"  class="order-select-full">
+                                    <textarea           id="coAddress" placeholder="Delivery Address *" required class="order-select-full"></textarea>
+                                    <input type="text"  id="coPincode" placeholder="Pincode *">
+                                </form>
+
+                                <div class="co-pay-label">Choose how to pay</div>
+                                <div class="co-pay-btns">
+                                    <button id="btnWhatsApp" class="btn btn-whatsapp co-pay-btn">
+                                        <i class="fab fa-whatsapp"></i> WhatsApp
+                                    </button>
+                                    <button id="btnRazorpay" class="co-pay-btn co-pay-online">
+                                        <i class="fas fa-lock"></i> Pay Online
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div><!-- /co-body-grid -->
+
+                        <!-- Trust row -->
+                        <div class="order-trust">
+                            <span><i class="fas fa-check-circle"></i> Secure Payment</span>
+                            <span><i class="fas fa-check-circle"></i> Instant Reply</span>
+                            <span><i class="fas fa-check-circle"></i> Pan-India Delivery</span>
+                        </div>
+
                     </div>
-                    <p class="co-delivery-note"><i class="fas fa-truck"></i> Delivery charges will be confirmed on WhatsApp based on your location.</p>
                 </div>
-
-                <!-- RIGHT: Details + Payment -->
-                <div class="checkout-box">
-                    <h3><i class="fas fa-user"></i> Your Details</h3>
-                    <form id="checkoutForm" class="checkout-form" onsubmit="return false">
-                        <input type="text"  id="coName"    placeholder="Full Name *"          required>
-                        <input type="tel"   id="coPhone"   placeholder="Phone Number *"       required>
-                        <input type="email" id="coEmail"   placeholder="Email (optional)">
-                        <textarea           id="coAddress" placeholder="Delivery Address *"   required rows="3"></textarea>
-                        <input type="text"  id="coPincode" placeholder="Pincode *"            required>
-                    </form>
-
-                    <div class="checkout-or"><span>Choose how to pay</span></div>
-
-                    <div class="checkout-actions">
-                        <button class="co-btn co-btn-wa" id="btnWhatsApp">
-                            <i class="fab fa-whatsapp"></i>
-                            Confirm Order via WhatsApp
-                        </button>
-                        <button class="co-btn co-btn-pay" id="btnRazorpay">
-                            <i class="fas fa-lock"></i>
-                            Pay Online (UPI / Card / Net Banking)
-                        </button>
-                    </div>
-
-                    <p class="co-note">
-                        <i class="fas fa-shield-alt"></i>
-                        <strong>WhatsApp</strong> — we confirm your order &amp; share payment details.<br>
-                        <i class="fas fa-credit-card"></i>
-                        <strong>Pay Online</strong> — instant confirmation via Razorpay.
-                    </p>
-                </div>
-            </div><!-- /checkout-grid -->
+            </div>
 
         </div>
     </section>
@@ -194,17 +200,17 @@
 
         const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
         itemsEl.innerHTML = cart.map(item => `
-            <div class="co-item">
-                <div class="co-item-img">
+            <div class="co-dark-item">
+                <div class="co-dark-item-img">
                     ${item.image
-                        ? `<img src="${item.image}" alt="${item.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><div style="display:none;font-size:1.6rem;align-items:center;justify-content:center;">${item.emoji}</div>`
-                        : `<div style="font-size:1.6rem;display:flex;align-items:center;justify-content:center;">${item.emoji}</div>`}
+                        ? `<img src="${item.image}" alt="${item.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">${item.emoji}`
+                        : item.emoji}
                 </div>
-                <div class="co-item-info">
-                    <div class="co-item-name">${item.name}</div>
-                    <div class="co-item-sub">Qty: ${item.qty} × ${inrCo(item.price)}</div>
+                <div class="co-dark-item-info">
+                    <div class="co-dark-item-name">${item.name}</div>
+                    <div class="co-dark-item-sub">Qty: ${item.qty} × ${inrCo(item.price)}</div>
                 </div>
-                <div class="co-item-price">${inrCo(item.price * item.qty)}</div>
+                <div class="co-dark-item-price">${inrCo(item.price * item.qty)}</div>
             </div>`).join('');
         totalEl.textContent = inrCo(total);
     }
