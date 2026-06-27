@@ -336,8 +336,6 @@ function renderBirds(list) {
                     <div class="card-actions">
                         <button class="ic-btn inf-btn" data-id="${b.id}" title="View Details"><i class="fas fa-info"></i></button>
                         <button class="ic-btn cart-btn" data-id="${b.id}" title="Add to Cart"><i class="fas fa-cart-plus"></i></button>
-                        <a href="${waLink(waMsg)}" class="ic-btn wa-btn" target="_blank" title="Order on WhatsApp"
-                           onclick="event.stopPropagation()"><i class="fab fa-whatsapp"></i></a>
                     </div>
                 </div>
             </div>`;
@@ -790,9 +788,6 @@ function renderFood(list) {
                     </div>
                     <div class="card-actions">
                         <button class="ic-btn cart-btn" title="Add to Cart"><i class="fas fa-cart-plus"></i></button>
-                        <a href="${waLink(waMsg)}" class="ic-btn wa-btn" target="_blank" title="Order on WhatsApp">
-                            <i class="fab fa-whatsapp"></i>
-                        </a>
                     </div>
                 </div>
             </div>`;
@@ -840,9 +835,6 @@ function renderAccessories(list) {
                     </div>
                     <div class="card-actions">
                         <button class="ic-btn cart-btn" title="Add to Cart"><i class="fas fa-cart-plus"></i></button>
-                        <a href="${waLink(waMsg)}" class="ic-btn wa-btn" target="_blank" title="Order on WhatsApp">
-                            <i class="fab fa-whatsapp"></i>
-                        </a>
                     </div>
                 </div>
             </div>`;

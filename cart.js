@@ -17,7 +17,6 @@ function addToCart(item) {
     if (ex) { ex.qty++; } else { cart.push({ ...item, qty: 1 }); }
     saveCart();
     renderCartItems();
-    openCartDrawer();
     cartToast('✓ Added to cart — ' + item.name);
 }
 
