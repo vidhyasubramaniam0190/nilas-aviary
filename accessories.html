@@ -35,7 +35,7 @@
                 <li class="nav-dropdown">
                     <a href="accessories.html" class="nav-link nav-dropdown-toggle">Accessories <i class="fas fa-chevron-down nav-dd-arrow"></i></a>
                     <ul class="nav-dropdown-menu">
-                        <li><a href="accessories.html" class="nav-dd-link"><i class="fas fa-dove"></i> Bird Accessories</a></li>
+                        <li><a href="accessories.html#bird" class="nav-dd-link"><i class="fas fa-dove"></i> Bird Accessories</a></li>
                         <li><a href="accessories.html#fish" class="nav-dd-link"><i class="fas fa-fish"></i> Fish Accessories</a></li>
                         <li><a href="accessories.html#pets" class="nav-dd-link"><i class="fas fa-paw"></i> Dogs &amp; Cats</a></li>
                     </ul>
@@ -57,20 +57,53 @@
         </div>
     </section>
 
-    <!-- ===== ACCESSORIES SECTION ===== -->
-    <section class="products-section acc-section" id="accessories" style="padding-top: 40px;">
+    <!-- ===== BIRD ACCESSORIES ===== -->
+    <section class="products-section acc-section acc-split-section" id="bird" style="padding-top: 50px;">
         <div class="container">
-            <div class="filter-bar" id="accFilter">
-                <button class="filter-btn active" data-filter="all">All Items</button>
+            <div class="acc-split-header">
+                <div class="acc-split-icon acc-icon-bird"><i class="fas fa-dove"></i></div>
+                <div>
+                    <h2 class="acc-split-title">Bird Accessories</h2>
+                    <p class="acc-split-sub">Cages, perches, toys & feeders for your feathered friends</p>
+                </div>
+            </div>
+            <div class="filter-bar" id="birdAccFilter">
+                <button class="filter-btn active" data-filter="all">All</button>
                 <button class="filter-btn" data-filter="cage">Cages</button>
                 <button class="filter-btn" data-filter="perch">Perches</button>
                 <button class="filter-btn" data-filter="toy">Toys</button>
                 <button class="filter-btn" data-filter="feeder">Feeders</button>
                 <button class="filter-btn" data-filter="other">Other</button>
-                <button class="filter-btn" data-filter="fish" id="fish">🐠 Fish</button>
-                <button class="filter-btn" data-filter="pets" id="pets">🐾 Cats & Dogs</button>
             </div>
-            <div class="birds-grid" id="accGrid"></div>
+            <div class="birds-grid" id="birdAccGrid"></div>
+        </div>
+    </section>
+
+    <!-- ===== FISH ACCESSORIES ===== -->
+    <section class="products-section acc-section acc-split-section acc-split-alt" id="fish">
+        <div class="container">
+            <div class="acc-split-header">
+                <div class="acc-split-icon acc-icon-fish"><i class="fas fa-fish"></i></div>
+                <div>
+                    <h2 class="acc-split-title">Fish Accessories</h2>
+                    <p class="acc-split-sub">Tanks, filters, lighting & essentials for your aquarium</p>
+                </div>
+            </div>
+            <div class="birds-grid" id="fishAccGrid"></div>
+        </div>
+    </section>
+
+    <!-- ===== DOG & CAT ACCESSORIES ===== -->
+    <section class="products-section acc-section acc-split-section" id="pets">
+        <div class="container">
+            <div class="acc-split-header">
+                <div class="acc-split-icon acc-icon-pets"><i class="fas fa-paw"></i></div>
+                <div>
+                    <h2 class="acc-split-title">Dogs & Cats</h2>
+                    <p class="acc-split-sub">Collars, toys, grooming & more for your furry companions</p>
+                </div>
+            </div>
+            <div class="birds-grid" id="petsAccGrid"></div>
         </div>
     </section>
 

@@ -817,8 +817,8 @@ function renderFood(list) {
 /* ============================================
    ACCESSORIES — RENDER
    ============================================ */
-function renderAccessories(list) {
-    const grid = document.getElementById('accGrid');
+function renderAccessories(list, gridId) {
+    const grid = document.getElementById(gridId || 'accGrid');
     if (!grid) return;
     grid.innerHTML = '';
     if (!list.length) {
@@ -927,24 +927,32 @@ document.querySelectorAll('#foodFilter .filter-btn').forEach(btn => {
 });
 
 /* ============================================
-   ACCESSORIES FILTER
+   ACCESSORIES — 3-SECTION RENDER + FILTER
    ============================================ */
-let activeAccFilter = 'all';
-document.querySelectorAll('#accFilter .filter-btn').forEach(btn => {
+const birdItems = accessories.filter(p => !['fish','pets'].some(c => p.category.includes(c)));
+const fishItems = accessories.filter(p => p.category.includes('fish'));
+const petsItems = accessories.filter(p => p.category.includes('pets'));
+
+function renderBirdAcc(list) { renderAccessories(list, 'birdAccGrid'); }
+function renderFishAcc(list) { renderAccessories(list, 'fishAccGrid'); }
+function renderPetsAcc(list) { renderAccessories(list, 'petsAccGrid'); }
+
+/* Bird accessories sub-filter */
+let activeBirdAccFilter = 'all';
+document.querySelectorAll('#birdAccFilter .filter-btn').forEach(btn => {
     btn.addEventListener('click', () => {
-        document.querySelectorAll('#accFilter .filter-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('#birdAccFilter .filter-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
-        activeAccFilter = btn.dataset.filter;
-        renderAccessories(accessories.filter(p => activeAccFilter === 'all' || p.category.includes(activeAccFilter)));
+        activeBirdAccFilter = btn.dataset.filter;
+        renderBirdAcc(birdItems.filter(p => activeBirdAccFilter === 'all' || p.category.includes(activeBirdAccFilter)));
     });
 });
 
-/* Auto-activate filter from URL hash (#fish, #pets) */
+/* Auto-scroll to section from URL hash */
 (function() {
     const hash = location.hash.replace('#', '');
-    if (hash) {
-        const btn = document.querySelector(`#accFilter .filter-btn[data-filter="${hash}"]`);
-        if (btn) { btn.click(); setTimeout(() => document.getElementById('accessories')?.scrollIntoView({ behavior: 'smooth' }), 100); }
+    if (hash && document.getElementById(hash)) {
+        setTimeout(() => document.getElementById(hash)?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 150);
     }
 })();
 
@@ -1237,7 +1245,9 @@ renderReviews();
 renderVideos();
 populateSelect();
 renderFood(foodProducts);
-renderAccessories(accessories);
+renderBirdAcc(birdItems);
+renderFishAcc(fishItems);
+renderPetsAcc(petsItems);
 initCarousel();
 initGcSlider();
 initTicker();
