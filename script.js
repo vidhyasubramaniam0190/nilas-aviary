@@ -1,5 +1,5 @@
-/* ============================================
-   NILA'S AVIARY — SCRIPT
+﻿/* ============================================
+   Niloras — SCRIPT
    ⚙️  UPDATE: Replace 919876543210 with your actual
        WhatsApp number (country code + number, no spaces)
 
@@ -309,7 +309,7 @@ function renderBirds(list) {
         return;
     }
     list.forEach(b => {
-        const waMsg = `Hi Nila's Aviary! I'm interested in the *${b.name}* (${inr(b.price)}). Please share availability and details.`;
+        const waMsg = `Hi Niloras! I'm interested in the *${b.name}* (${inr(b.price)}). Please share availability and details.`;
         const card = document.createElement('div');
         card.className = 'bird-card';
         card.innerHTML = `
@@ -375,7 +375,7 @@ function applyFilters() {
 function openModal(id) {
     const b = birds.find(x => x.id === id);
     if (!b) return;
-    const waMsg = `Hi Nila's Aviary! I'd like to order the *${b.name}* (${inr(b.price)}). Please confirm availability and next steps.`;
+    const waMsg = `Hi Niloras! I'd like to order the *${b.name}* (${inr(b.price)}). Please confirm availability and next steps.`;
     document.getElementById('modalContent').innerHTML = `
         <img class="modal-img" src="${b.image}" alt="${b.name}"
              onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
@@ -451,7 +451,7 @@ if (document.getElementById('orderForm')) document.getElementById('orderForm').a
     const phone = document.getElementById('orderPhone').value.trim();
     const bird  = document.getElementById('orderBird').value;
     if (!name || !phone || !bird) { toast('Please fill all required fields ★'); return; }
-    const waMsg = `🦜 *New Order — Nila's Aviary*\n\n` +
+    const waMsg = `🦜 *New Order — Niloras*\n\n` +
         `👤 *Name:* ${name}\n` +
         `📱 *Phone:* ${phone}\n` +
         `🐦 *Product:* ${bird}\n\n` +
@@ -521,7 +521,7 @@ if (document.getElementById('reviewForm')) document.getElementById('reviewForm')
     const initials = name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2);
     const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
     const now = new Date();
-    reviews.unshift({ name, bird: bird || "Nila's Aviary bird", rating: pickedRating, text, initials, date: `${MONTHS[now.getMonth()]} ${now.getFullYear()}` });
+    reviews.unshift({ name, bird: bird || "Niloras bird", rating: pickedRating, text, initials, date: `${MONTHS[now.getMonth()]} ${now.getFullYear()}` });
     renderReviews();
     e.target.reset();
     pickedRating = 0;
@@ -586,7 +586,7 @@ const videos = [
     },
     {
         id: 2,
-        title: "Nila's Aviary — Instagram Reel",
+        title: "Niloras — Instagram Reel",
         bird: 'Featured Bird',
         type: 'instagram',
         src: '',
@@ -764,7 +764,7 @@ function renderFood(list) {
     list.forEach(p => {
         const imgs = p.images || (p.image ? [p.image] : []);
         const mainImg = imgs[0] || '';
-        const waMsg = `Hi Nila's Aviary! I'd like to order *${p.name}* (${p.unit}). Please confirm availability and delivery details.`;
+        const waMsg = `Hi Niloras! I'd like to order *${p.name}* (${p.unit}). Please confirm availability and delivery details.`;
         const card = document.createElement('div');
         card.className = 'bird-card';
         card.innerHTML = `
@@ -808,7 +808,7 @@ function renderAccessories(list) {
     list.forEach(p => {
         const imgs = p.images || (p.image ? [p.image] : []);
         const mainImg = imgs[0] || '';
-        const waMsg = `Hi Nila's Aviary! I'd like to order *${p.name}* (${p.unit}). Please confirm availability.`;
+        const waMsg = `Hi Niloras! I'd like to order *${p.name}* (${p.unit}). Please confirm availability.`;
         const card = document.createElement('div');
         card.className = 'bird-card';
         card.innerHTML = `
@@ -946,7 +946,7 @@ function _carMakeCard(item) {
     card.className = 'bird-card carousel-card';
     const { kind, d } = item;
     if (kind === 'bird') {
-        const wa = waLink(`Hi Nila's Aviary! I'm interested in *${d.name}* (${inr(d.price)}).`);
+        const wa = waLink(`Hi Niloras! I'm interested in *${d.name}* (${inr(d.price)}).`);
         card.innerHTML = `
             <div class="img-wrap">
                 <img class="card-img" src="${d.image}" alt="${d.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
@@ -968,7 +968,7 @@ function _carMakeCard(item) {
         card.addEventListener('click', e => { if (!e.target.closest('.card-actions')) window.location.href = 'birds.html'; });
     } else if (kind === 'food') {
         const imgs = d.images || (d.image ? [d.image] : []);
-        const wa = waLink(`Hi Nila's Aviary! I'd like to order *${d.name}* (${d.unit}).`);
+        const wa = waLink(`Hi Niloras! I'd like to order *${d.name}* (${d.unit}).`);
         card.innerHTML = `
             <div class="img-wrap">
                 <img class="card-img" src="${imgs[0]||''}" alt="${d.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
@@ -989,7 +989,7 @@ function _carMakeCard(item) {
         card.addEventListener('click', e => { if (!e.target.closest('.card-actions')) window.location.href = 'food.html'; });
     } else {
         const imgs = d.images || (d.image ? [d.image] : []);
-        const wa = waLink(`Hi Nila's Aviary! I'd like to order *${d.name}* (${d.unit}).`);
+        const wa = waLink(`Hi Niloras! I'd like to order *${d.name}* (${d.unit}).`);
         card.innerHTML = `
             <div class="img-wrap">
                 <img class="card-img" src="${imgs[0]||''}" alt="${d.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
@@ -1115,7 +1115,7 @@ function initGcSlider() {
         const name  = d.name;
         const price = kind === 'bird' ? inr(d.price) : d.unit;
         const cat   = kind === 'bird' ? 'Bird' : kind === 'food' ? 'Food' : 'Accessories';
-        const waMsg = encodeURIComponent(`Hi Nila's Aviary! I'm interested in *${name}*. Please share details.`);
+        const waMsg = encodeURIComponent(`Hi Niloras! I'm interested in *${name}*. Please share details.`);
 
         slide.innerHTML = `
             <div class="gc-slide-img-wrap">
