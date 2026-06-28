@@ -743,6 +743,26 @@ const accessories = [
     { id:'a12', name:'Bird Harness & Leash',    subtitle:'Adjustable · Size S/M/L',    emoji:'🎀', image:'images/accessories/harness.jpg',        category:['other'],   badge:'New',      unit:'₹480' },
     { id:'a13', name:'Grooming Kit',            subtitle:'Nail Clipper + Brush Set',   emoji:'✂️', image:'images/accessories/grooming.jpg',       category:['other'],   badge:null,       unit:'₹650 / kit' },
     { id:'a14', name:'Cockatiel Nesting Box',   subtitle:'Wooden · With Entry Perch',  emoji:'🪺', image:'images/accessories/nest-box.jpg',       category:['other'],   badge:null,       unit:'₹380' },
+
+    /* ---- Fish Accessories ---- */
+    { id:'f-a1', name:'Aquarium Tank',          subtitle:'Glass · 30L Starter Kit',    emoji:'🐠', image:'', category:['fish'],    badge:'Popular',  unit:'₹1,299' },
+    { id:'f-a2', name:'Internal Filter',        subtitle:'Silent Motor · 30–60L',      emoji:'💧', image:'', category:['fish'],    badge:null,        unit:'₹450' },
+    { id:'f-a3', name:'LED Aquarium Light',     subtitle:'White & Blue · 30cm',        emoji:'💡', image:'', category:['fish'],    badge:'New',       unit:'₹380' },
+    { id:'f-a4', name:'Air Pump',               subtitle:'Dual Outlet · Quiet',        emoji:'🫧', image:'', category:['fish'],    badge:null,        unit:'₹280' },
+    { id:'f-a5', name:'Aquarium Gravel',        subtitle:'Natural Pebbles · 1kg',      emoji:'🪨', image:'', category:['fish'],    badge:null,        unit:'₹180' },
+    { id:'f-a6', name:'Fish Food',              subtitle:'Flakes & Pellets · 100g',    emoji:'🌾', image:'', category:['fish'],    badge:null,        unit:'₹120' },
+    { id:'f-a7', name:'Aquarium Net',           subtitle:'Fine Mesh · 15cm',           emoji:'🕸️', image:'', category:['fish'],    badge:null,        unit:'₹80' },
+    { id:'f-a8', name:'Water Conditioner',      subtitle:'Dechlorinator · 100ml',      emoji:'🧪', image:'', category:['fish'],    badge:null,        unit:'₹150' },
+
+    /* ---- Cat & Dog Accessories ---- */
+    { id:'p-a1', name:'Premium Pet Collar',     subtitle:'Adjustable · S / M / L',     emoji:'🎀', image:'', category:['pets'],    badge:'Popular',   unit:'₹199' },
+    { id:'p-a2', name:'Retractable Leash',      subtitle:'5m · Auto-Lock',             emoji:'🦮', image:'', category:['pets'],    badge:null,        unit:'₹349' },
+    { id:'p-a3', name:'Pet Food Bowl Set',      subtitle:'Stainless Steel · 2pc',      emoji:'🥣', image:'', category:['pets'],    badge:null,        unit:'₹220' },
+    { id:'p-a4', name:'Plush Squeaky Toy',      subtitle:'Dog & Cat Safe · Assorted',  emoji:'🧸', image:'', category:['pets'],    badge:'Popular',   unit:'₹150' },
+    { id:'p-a5', name:'Grooming Brush',         subtitle:'De-shedding · All Breeds',   emoji:'🪮', image:'', category:['pets'],    badge:null,        unit:'₹280' },
+    { id:'p-a6', name:'Pet Carry Bag',          subtitle:'Breathable Mesh · Medium',   emoji:'👜', image:'', category:['pets'],    badge:'New',       unit:'₹699' },
+    { id:'p-a7', name:'Scratching Post',        subtitle:'Sisal Rope · 45cm',          emoji:'🐱', image:'', category:['pets'],    badge:null,        unit:'₹450' },
+    { id:'p-a8', name:'Automatic Pet Feeder',   subtitle:'Programmable · 1.5L',        emoji:'⏰', image:'', category:['pets'],    badge:'New',       unit:'₹1,199' },
 ];
 
 function parsePrice(unit) {
@@ -918,6 +938,15 @@ document.querySelectorAll('#accFilter .filter-btn').forEach(btn => {
         renderAccessories(accessories.filter(p => activeAccFilter === 'all' || p.category.includes(activeAccFilter)));
     });
 });
+
+/* Auto-activate filter from URL hash (#fish, #pets) */
+(function() {
+    const hash = location.hash.replace('#', '');
+    if (hash) {
+        const btn = document.querySelector(`#accFilter .filter-btn[data-filter="${hash}"]`);
+        if (btn) { btn.click(); setTimeout(() => document.getElementById('accessories')?.scrollIntoView({ behavior: 'smooth' }), 100); }
+    }
+})();
 
 /* ============================================
    PRODUCT CAROUSEL (Home Page)
